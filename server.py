@@ -11,6 +11,49 @@ mydB = mysql.connector.connect (
     #database="test"
 )
 
+mycursor =mydB.cursor()
+
+# Création des tables
+mycursor.execute('''create table IF NOT EXISTS etudiants (id int primary key auto_increment, nom varchar(50)
+                 )''')
+mydB.commit()
+mycursor.execute('''create table IF NOT EXISTS talents (id int primary key auto_increment, nom varchar(50)
+                 )''')
+mydB.commit()
+mycursor.execute('''create table IF NOT EXISTS groupes (id int primary key auto_increment, id_membre int(10)
+                 )''')
+mydB.commit()
+mycursor.execute('''create table IF NOT EXISTS projets (id int primary key auto_increment, nom varchar(50), id_groupe int(10)
+                 )''')
+mydB.commit()
+mycursor.execute('''create table IF NOT EXISTS possede (id_etud int, id_talent int , primary key(id_etud, id_talent)
+                 )''')
+mydB.commit()
+mycursor.execute('''create table IF NOT EXISTS forme (id_etud int, id_groupe int , primary key(id_etud, id_groupe)
+                 )''')
+mydB.commit()
+
+# Insérer les valeurs de base
+mycursor.execute(''' insert into talents values
+                 ('dev'),
+                 ('musique'),
+                 ('dessin'),
+                 ('graphisme'),
+                 ('dessin'),
+                 ('3D')''')
+mydB.commit()
+
+mycursor.execute(''' insert into etudiants values
+                 ('Bob leponge'),
+                 ('Dora lexploratrice'),
+                 ('koro-sensei')''')
+mydB.commit()
+
+
+mycursor.close()
+# Fin SQL
+
+
 default = {"Numéro étudiant": "1", "Nom": "Dupont", "Prénom": "Jean"}
 
 @myapp.route("/")

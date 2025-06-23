@@ -36,22 +36,53 @@ mydB.commit()
 mycursor.execute('''create table IF NOT EXISTS forme (id_etud int, id_groupe int , primary key(id_etud, id_groupe)
                  )''')
 mydB.commit()
+mycursor.execute('''create table IF NOT EXISTS controle(id_table int, nom_table varchar (10), implement bool default(0))
+                 )''')
+mydB.commit()
 
 # Insérer les valeurs de base
-mycursor.execute(''' insert into talents values
-                 ('dev'),
-                 ('musique'),
-                 ('dessin'),
-                 ('graphisme'),
-                 ('dessin'),
-                 ('3D')''')
-mydB.commit()
+mycursor.execute('''select implement from controle;
+                where nom_table='etudiants'; ''')
+isAlreadyDone = mycursor.fetchall()
 
-mycursor.execute(''' insert into etudiants values
-                 ('Bob leponge'),
-                 ('Dora lexploratrice'),
-                 ('koro-sensei')''')
-mydB.commit()
+if isAlreadyDone!= True:
+    mycursor.execute(''' insert into controle values
+                    ('talents','False'),
+                    ('etudiants','False'),
+                    ('controle','True'),''')
+    mydB.commit()
+    mycursor.execute('''update controle set implement=True 
+                    where nom_table='etudiants';''')
+
+mycursor.execute('''select implement from controle;
+                where nom_table='talents'; ''')
+isAlreadyDone = mycursor.fetchall()
+
+if isAlreadyDone== False:
+    mycursor.execute(''' insert into talents values
+                    ('dev'),
+                    ('musique'),
+                    ('dessin'),
+                    ('graphisme'),
+                    ('dessin'),
+                    ('3D')''')
+    mydB.commit()
+    mycursor.execute('''update controle set implement=True 
+                    where nom_table='talents';''')
+
+
+mycursor.execute('''select implement from controle;
+                where nom_table='etudiants'; ''')
+isAlreadyDone = mycursor.fetchall()
+
+if isAlreadyDone== False:
+    mycursor.execute(''' insert into etudiants values
+                    ('Bob leponge'),
+                    ('Dora lexploratrice'),
+                    ('koro-sensei')''')
+    mydB.commit()
+    mycursor.execute('''update controle set implement=True 
+                    where nom_table='etudiants';''')
 
 
 mycursor.close()

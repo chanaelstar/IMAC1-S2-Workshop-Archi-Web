@@ -12,5 +12,18 @@ mydB = mysql.connector.connect (
 )
 
 @myapp.route("/")
-def formulaire():
+def accueil():
     return render_template('accueil.html')
+
+@myapp.route("/liste_etudiants")
+def affichage():
+    return render_template("affichage_etud.html")
+
+
+@myapp.route("/ajout")
+def ajout():
+    return affichage()
+
+@myapp.route("/suppression")
+def suppression():
+    return affichage()

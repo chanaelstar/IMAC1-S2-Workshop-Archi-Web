@@ -3,6 +3,7 @@ from flask_cors import CORS
 import random 
 import mysql.connector
 myapp = Flask(__name__)
+CORS(myapp)
 
 # mydB = mysql.connector.connect (
 #     host="localhost",
@@ -55,9 +56,6 @@ mydB.commit()
 
 mycursor.close()
 # Fin SQL
-
-
-default = {"Numéro étudiant": "1", "Nom": "Dupont", "Prénom": "Jean"}
 
 @myapp.route("/")
 def accueil():

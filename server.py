@@ -10,7 +10,7 @@ CORS(myapp)
 #     user="root",
 #     #password="",
 #     #database="test"
- )
+#)
 
 default = {"num_etudiant": "1", "nom": "Dupont", "prenom": "Jean"}
 liste_etudiants = [default]

@@ -1,5 +1,10 @@
 Chanaël
 - MCD
+- affichage exemple
+- ajout exemple
 Emilie
 - Creation base de données sql
 Léo
+- suppression exemple
+- modif exemple
+- description du projet

@@ -114,3 +114,11 @@ def suppression(value):
             break
     return affichage()
 
+@myapp.route("/modification/<int:value>")
+def modification(value):
+    etudiant = {}
+    for i in range(len(liste_etudiants)):
+        if (liste_etudiants[i]["num_etudiant"] == value):
+            etudiant = liste_etudiants[i]
+            break
+    return render_template("modification_page.html", etudiant = etudiant)

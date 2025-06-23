@@ -9,11 +9,20 @@
 
     <body>
         <h1>Informations </h1>
-    
+        
+        <p>Numéro d'étudiant: {{etudiant["num_etudiant"]}}</p>
         <p>Nom: {{etudiant["nom"]}}</p>
         <p>Prénom: {{etudiant["prenom"]}}</p>
-        <p>Numéro: {{etudiant["num_etudiant"]}}</p>
-
+        
+        <form action="/changement" method="post">
+            <label for="num_etud">Numéro d'étudiant</label>
+            <input type="number" name="num_etud" id="num_etud" value='{{etudiant["num_etudiant"]}}' readonly/>
+            <label for="nouv_nom">Nouveau Nom</label>
+            <input type="text" name="nouv_nom" id="nouv_nom" value='{{etudiant["nom"]}}' />
+            <label for="nouv_prenom">Nouveau Prénom</label>
+            <input type="text" name="nouv_prenom" id="nouv_prenom" value='{{etudiant["prenom"]}}' />
+            <input type="submit"></input>
+        </form>
         
     </body>
 </html>

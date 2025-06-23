@@ -14,7 +14,8 @@ mydB = mysql.connector.connect (
 
 default = {"num_etudiant": 1, "nom": "Dupont", "prenom": "Jean"}
 test = {"num_etudiant": 2, "nom": "Leclerc", "prenom": "Charles"}
-liste_etudiants = [default,test]
+controle = {"num_etudiant": 3, "nom": "ctrl", "prenom": "ctrl"}
+liste_etudiants = [default,test,controle]
 
 mycursor =mydB.cursor()
 
@@ -122,3 +123,14 @@ def modification(value):
             etudiant = liste_etudiants[i]
             break
     return render_template("modification_page.html", etudiant = etudiant)
+
+@myapp.route("/changement", methods=['POST'])
+def changement():
+    index = 0
+    for i in range(len(liste_etudiants)):
+        if (liste_etudiants[i]["num_etudiant"] == request.form["num_etud"]):
+            index = i
+            break
+    liste_etudiants[index]["nom"] = request.form["nouv_nom"]
+    liste_etudiants[index]["prenom"] = request.form["nouv_prenom"]
+    return affichage()

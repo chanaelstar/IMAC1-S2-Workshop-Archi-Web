@@ -5,12 +5,12 @@ import mysql.connector
 myapp = Flask(__name__)
 CORS(myapp)
 
-mydB = mysql.connector.connect (
-     host="localhost",
-     user="root",
-     #password="",
-     #database="test"
-)
+# mydB = mysql.connector.connect (
+#      host="localhost",
+#      user="root",
+#      #password="",
+#      #database="test"
+# )
 
 default = {"num_etudiant": 1, "nom": "Dupont", "prenom": "Jean"}
 test = {"num_etudiant": 2, "nom": "Leclerc", "prenom": "Charles"}
@@ -103,7 +103,17 @@ def ajout():
     nom = request.form["nom"]
     prenom = request.form["prenom"]
 
+    etudiant = {
+        "num_etudiant": num_etudiant,
+        "nom": nom,
+        "prenom": prenom
+    }
+    liste_etudiants.append(etudiant)
     return affichage()
+
+@myapp.route("/traitement")
+def traitement():
+    return render_template("ajout.html")
 
 @myapp.route("/suppression/<int:value>")
 def suppression(value):

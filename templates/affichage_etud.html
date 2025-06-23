@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link href="styles/main.css" rel="stylesheet">
+        <link href="/static/styles.css" rel="stylesheet">
         <title>Workshop E3 IMAC</title>
     </head>
 
@@ -26,14 +26,19 @@
                 {% for etudiant in liste_etudiants %}
                     <tr>
                         <td>{{ etudiant["num_etudiant"] }}</td>
-                        <td>{{ etudiant["nom"] }}</td>
+                        <td>{{ etudiant["nom"] }}</t>
                         <td>{{ etudiant["prenom"] }}</td>
-                        <th style="border: 2px solid rgb(140 140 140)"><a href='/modification/{{etudiant["num_etudiant"]}}'>Modifier les Informations</a></th>
-                        <th style="border: 2px solid rgb(140 140 140)"><a href='/suppression/{{etudiant["num_etudiant"]}}'>Supprimer un étudiant</a></th>
+                        <td style="border: 2px solid rgb(140 140 140)"><a href='/modification/{{etudiant["num_etudiant"]}}'>Modifier les Informations</a></td>
+                        <td style="border: 2px solid rgb(140 140 140)"><a href='/suppression/{{etudiant["num_etudiant"]}}'>Supprimer un étudiant</a></td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
+        <br>
+
+        <a href="/traitement">
+            <button>Ajouter un étudiant</button>
+        </a>
         
     </body>
 </html>

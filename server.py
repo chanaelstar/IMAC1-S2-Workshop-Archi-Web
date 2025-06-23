@@ -20,7 +20,7 @@ liste_etudiants = [default,test,controle]
 mycursor =mydB.cursor()
 
 # Création des tables
-mycursor.execute('''create table IF NOT EXISTS etudiants (id int primary key auto_increment, nom varchar(50)
+mycursor.execute('''create table IF NOT EXISTS etudiants (id int primary key auto_increment, prenom varchar(50), nom varchar(50)
                  )''')
 mydB.commit()
 mycursor.execute('''create table IF NOT EXISTS talents (id int primary key auto_increment, nom varchar(50)
@@ -38,53 +38,51 @@ mydB.commit()
 mycursor.execute('''create table IF NOT EXISTS forme (id_etud int, id_groupe int , primary key(id_etud, id_groupe)
                  )''')
 mydB.commit()
-mycursor.execute('''create table IF NOT EXISTS controle(id_table int, nom_table varchar (10), implement bool default(0))
-                 )''')
+mycursor.execute('''create table IF NOT EXISTS controle(id_table int, nom_table varchar (10), implement bool default(False))
+                 ''')
 mydB.commit()
 
 # Insérer les valeurs de base
-mycursor.execute('''select implement from controle;
-                where nom_table='etudiants'; ''')
+mycursor.execute('''select implement from controle
+                where id_table=3; ''')
 isAlreadyDone = mycursor.fetchall()
 
 if isAlreadyDone!= True:
-    mycursor.execute(''' insert into controle values
-                    ('talents','False'),
-                    ('etudiants','False'),
-                    ('controle','True'),''')
+    mycursor.execute(''' insert into controle (nom_table, implement) values
+                    ('talents', False),
+                    ('etudiants',False),
+                    ('controle',True);''')
     mydB.commit()
-    mycursor.execute('''update controle set implement=True 
-                    where nom_table='etudiants';''')
 
-mycursor.execute('''select implement from controle;
-                where nom_table='talents'; ''')
+mycursor.execute('''select implement from controle
+                where id_table=1; ''')
 isAlreadyDone = mycursor.fetchall()
 
 if isAlreadyDone== False:
-    mycursor.execute(''' insert into talents values
+    mycursor.execute(''' insert into talents (nom) values
                     ('dev'),
                     ('musique'),
                     ('dessin'),
                     ('graphisme'),
                     ('dessin'),
-                    ('3D')''')
+                    ('3D');''')
     mydB.commit()
     mycursor.execute('''update controle set implement=True 
-                    where nom_table='talents';''')
+                    where id_table=1;''')
 
 
-mycursor.execute('''select implement from controle;
-                where nom_table='etudiants'; ''')
+mycursor.execute('''select implement from controle
+                where id_table=2; ''')
 isAlreadyDone = mycursor.fetchall()
 
 if isAlreadyDone== False:
-    mycursor.execute(''' insert into etudiants values
-                    ('Bob leponge'),
-                    ('Dora lexploratrice'),
-                    ('koro-sensei')''')
+    mycursor.execute(''' insert into etudiants (prenom, nom) values
+                    ('Bob','leponge'),
+                    ('Dora','lexploratrice'),
+                    ('koro','sensei');''')
     mydB.commit()
     mycursor.execute('''update controle set implement=True 
-                    where nom_table='etudiants';''')
+                    where id_table=2;''')
 
 
 mycursor.close()

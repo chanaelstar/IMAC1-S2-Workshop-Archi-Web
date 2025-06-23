@@ -4,14 +4,15 @@ import random
 import mysql.connector
 myapp = Flask(__name__)
 
-mydB = mysql.connector.connect (
-    host="localhost",
-    user="root",
-    #password="",
-    #database="test"
-)
+# mydB = mysql.connector.connect (
+#     host="localhost",
+#     user="root",
+#     #password="",
+#     #database="test"
+# )
 
-default = {"Numéro étudiant": "1", "Nom": "Dupont", "Prénom": "Jean"}
+default = {"num_etudiant": "1", "nom": "Dupont", "prenom": "Jean"}
+liste_etudiants = [default]
 
 @myapp.route("/")
 def accueil():
@@ -19,9 +20,7 @@ def accueil():
 
 @myapp.route("/liste_etudiants")
 def affichage():
-    return render_template("affichage_etud.html", 
-                           etudiants=[default, default, default, default])
-
+    return render_template("affichage_etud.html", liste_etudiants=liste_etudiants)
 
 
 @myapp.route("/ajout", methods=['GET', 'POST'])

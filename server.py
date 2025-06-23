@@ -5,15 +5,16 @@ import mysql.connector
 myapp = Flask(__name__)
 CORS(myapp)
 
-# mydB = mysql.connector.connect (
-#     host="localhost",
-#     user="root",
-#     #password="",
-#     #database="test"
-#)
+mydB = mysql.connector.connect (
+     host="localhost",
+     user="root",
+     #password="",
+     #database="test"
+)
 
-default = {"num_etudiant": "1", "nom": "Dupont", "prenom": "Jean"}
-liste_etudiants = [default]
+default = {"num_etudiant": 1, "nom": "Dupont", "prenom": "Jean"}
+test = {"num_etudiant": 2, "nom": "Leclerc", "prenom": "Charles"}
+liste_etudiants = [default,test]
 
 mycursor =mydB.cursor()
 
@@ -94,7 +95,7 @@ def accueil():
 
 @myapp.route("/liste_etudiants")
 def affichage():
-    return render_template("affichage_etud.html", liste_etudiants=liste_etudiants)
+    return render_template('affichage_etud.html', liste_etudiants=liste_etudiants)
 
 
 @myapp.route("/ajout", methods=['GET', 'POST'])
@@ -105,6 +106,11 @@ def ajout():
 
     return affichage()
 
-@myapp.route("/suppression")
-def suppression():
+@myapp.route("/suppression/<int:value>")
+def suppression(value):
+    for i in range(len(liste_etudiants)):
+        if (liste_etudiants[i]["num_etudiant"] == value):
+            liste_etudiants.pop(i)
+            break
     return affichage()
+

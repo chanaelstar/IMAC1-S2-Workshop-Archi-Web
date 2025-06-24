@@ -23,7 +23,6 @@ Ce système vise à faciliter la gestion de projets collaboratifs dans un cadre 
 **Réalisé dans le cadre du Workshop d'Architecture Logicielle Web du semestre 2 de la première année d'IMAC (2024-2025).**
 
 ---
-## Schéma Conceptuel de la Base de Données
+## Schéma Modèle Conceptuel de la Base de Données
 ![Schéma MCD (Modèle Conceptuel de Données)](doc/MCD.png)
-
-
+![Schéma relationnel](doc/schema-relationnel.png)

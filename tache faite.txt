@@ -1,5 +1,6 @@
 Chanaël
-- MCD
+- MCD +schéma relationnel
+- rédaction du README
 - affichage exemple
 - ajout exemple
 Emilie

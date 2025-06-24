@@ -22,7 +22,7 @@
             <tbody>
                 <tr>
                     <td>
-                        {% for talent_etud in liste_etudiants_talents %}
+                        {% for talent_etud in liste_possede %}
                             {% if talent_etud["num_etudiant"] == etudiant["num_etudiant"] %}
                                 {{ talent_etud["talent"] }} ,
                             {% endif %}
@@ -33,7 +33,9 @@
             </tbody>
         </table> -->
         
-        <form action="/changement" method="post">
+        <form action='/changement/{{etudiant["num_etudiant"]}}' method="post">
+            <!-- <p>Numéro d'étudiant:</p>
+            <p name='num_etud' value='{{etudiant["num_etudiant"]}}'>{{etudiant["num_etudiant"]}}</p> -->
             <!-- <label for="num_etud">Numéro d'étudiant</label>
             <input type="number" name="num_etud" id="num_etud" value='{{etudiant["num_etudiant"]}}' readonly/> -->
             <label for="nouv_nom">Nouveau Nom :</label>

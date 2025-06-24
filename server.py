@@ -6,13 +6,13 @@ import request_sql
 myapp = Flask(__name__)
 CORS(myapp)
 
-pswd = ""
+pswd = "636cxp77"
 database_name = "test"
 
-default = {"num_etudiant": 1, "nom": "Dupont", "prenom": "Jean"}
-test = {"num_etudiant": 2, "nom": "Leclerc", "prenom": "Charles"}
-controle = {"num_etudiant": 3, "nom": "ctrl", "prenom": "ctrl"}
-liste_etudiants = [default,test,controle]
+# default = {"num_etudiant": 1, "nom": "Dupont", "prenom": "Jean"}
+# test = {"num_etudiant": 2, "nom": "Leclerc", "prenom": "Charles"}
+# controle = {"num_etudiant": 3, "nom": "ctrl", "prenom": "ctrl"}
+liste_etudiants = []
 
 liste_talents = ["Web", "3D", "Dev", "Montage", "Musique", "Dessin"]
 liste_etudiants_talents = [
@@ -31,6 +31,7 @@ def accueil():
 
 @myapp.route("/liste_etudiants")
 def affichage():
+    request_sql.get_students_info(pswd, database_name, liste_etudiants)
     return render_template('affichage_etud.html', liste_etudiants=liste_etudiants , liste_etudiants_talents = liste_etudiants_talents)
 
 

@@ -105,7 +105,7 @@ def init_database(pswd, database_name):
 
     mycursor.close()
 
-def get_students_info(pswd,database_name):
+def get_students_info(pswd,database_name, liste_etudiants):
     mydB = mysql.connector.connect (
      host="localhost",
      user="root",
@@ -113,6 +113,20 @@ def get_students_info(pswd,database_name):
      database= database_name
     ) 
 
+
     mycursor = mydB.cursor()
+
+    mycursor.execute('''select * from etudiant''')
+    for i in mycursor.fetchall():
+        etudiant = {}
+        etudiant["num_etudiant"] = i[0]
+        etudiant["prenom"] = i[1]
+        etudiant["nom"] = i[2]
+        if i[0] > len(liste_etudiants):
+            liste_etudiants.append(etudiant)
+
+
+
+
     mycursor.close()
 

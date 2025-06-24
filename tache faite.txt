@@ -3,9 +3,16 @@ Chanaël
 - rédaction du README
 - affichage exemple
 - ajout exemple
+- affichage en interaction avec la base de données
+- ajout CSS 
+
 Emilie
 - Creation base de données sql
+- modification de nom / prenom en interaction avec la base de données
+
 Léo
 - suppression exemple
 - modif exemple
-- description du projet
+- affichage talents exemple et modification
+- gestion d'erreurs 
+

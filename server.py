@@ -30,32 +30,35 @@ mycursor =mydB.cursor()
 # Création des tables
 mycursor.execute('''create table IF NOT EXISTS etudiants (id int primary key auto_increment, prenom varchar(50), nom varchar(50)
                  )''')
-mydB.commit()
 mycursor.execute('''create table IF NOT EXISTS talents (id int primary key auto_increment, nom varchar(50)
                  )''')
 mydB.commit()
-mycursor.execute('''create table IF NOT EXISTS groupes (id int primary key auto_increment, id_membre int(10)
+mycursor.execute('''create table IF NOT EXISTS groupes (id int primary key auto_increment, id_membre int(10), nb_membres int
                  )''')
 mydB.commit()
-mycursor.execute('''create table IF NOT EXISTS projets (id int primary key auto_increment, nom varchar(50), id_groupe int(10)
+mycursor.execute('''create table IF NOT EXISTS projets (id int primary key auto_increment, nom varchar(50), id_groupe int(10), foreign key(id_groupe) references groupes (id)
                  )''')
 mydB.commit()
-mycursor.execute('''create table IF NOT EXISTS possede (id_etud int, id_talent int , primary key(id_etud, id_talent)
+mycursor.execute('''create table IF NOT EXISTS possede (id_etud int, id_talent int, primary key(id_etud, id_talent),
+                 foreign key(id_etud) references etudiants(id), foreign key(id_talent) references talents(id)
                  )''')
 mydB.commit()
-mycursor.execute('''create table IF NOT EXISTS forme (id_etud int, id_groupe int , primary key(id_etud, id_groupe)
+mycursor.execute('''create table IF NOT EXISTS forme (id_etud int, id_groupe int, primary key(id_etud, id_groupe),
+                 foreign key(id_groupe) references groupes(id), foreign key(id_etud) references etudiants(id)
                  )''')
 mydB.commit()
-mycursor.execute('''create table IF NOT EXISTS controle(id_table int, nom_table varchar (10), implement bool default(False))
+mycursor.execute('''create table IF NOT EXISTS controle(id_table int primary key auto_increment, nom_table varchar (10), implement bool default(False))
                  ''')
 mydB.commit()
 
 # Insérer les valeurs de base
 mycursor.execute('''select implement from controle
                 where id_table=3; ''')
-isAlreadyDone = mycursor.fetchall()
+isAlreadyDone = mycursor.fetchone()
+if isAlreadyDone is None :
+    isAlreadyDone = False
 
-if isAlreadyDone!= True:
+if not isAlreadyDone :
     mycursor.execute(''' insert into controle (nom_table, implement) values
                     ('talents', False),
                     ('etudiants',False),
@@ -64,9 +67,9 @@ if isAlreadyDone!= True:
 
 mycursor.execute('''select implement from controle
                 where id_table=1; ''')
-isAlreadyDone = mycursor.fetchall()
+isAlreadyDone = mycursor.fetchone()[0]
 
-if isAlreadyDone== False:
+if not isAlreadyDone:
     mycursor.execute(''' insert into talents (nom) values
                     ('dev'),
                     ('musique'),
@@ -77,21 +80,50 @@ if isAlreadyDone== False:
     mydB.commit()
     mycursor.execute('''update controle set implement=True 
                     where id_table=1;''')
-
+    mydB.commit()
 
 mycursor.execute('''select implement from controle
                 where id_table=2; ''')
-isAlreadyDone = mycursor.fetchall()
+isAlreadyDone = mycursor.fetchone()[0]
 
-if isAlreadyDone== False:
+if not isAlreadyDone:
     mycursor.execute(''' insert into etudiants (prenom, nom) values
                     ('Bob','leponge'),
                     ('Dora','lexploratrice'),
                     ('koro','sensei');''')
     mydB.commit()
+    
     mycursor.execute('''update controle set implement=True 
                     where id_table=2;''')
+    mydB.commit()
 
+mycursor.execute('''select * from etudiants''')
+etud=mycursor.fetchall()
+print(etud)
+
+mycursor.execute('''select * from talents''')
+tal=mycursor.fetchall()
+print(tal)
+
+mycursor.execute('''select * from groupes''')
+grp=mycursor.fetchall()
+print(grp)
+
+mycursor.execute('''select * from projets''')
+prj=mycursor.fetchall()
+print(prj)
+
+mycursor.execute('''select * from controle''')
+ctrl=mycursor.fetchall()
+print(ctrl)
+
+mycursor.execute('''select * from forme''')
+frm=mycursor.fetchall()
+print(frm)
+
+mycursor.execute('''select * from possede''')
+pssd=mycursor.fetchall()
+print(pssd)
 
 mycursor.close()
 # Fin SQL

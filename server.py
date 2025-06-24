@@ -28,16 +28,15 @@ liste_etudiants_talents = [
 mycursor =mydB.cursor()
 
 # Création des tables
-mycursor.execute('''create table IF NOT EXISTS etudiant (id_num int primary key auto_increment, prenom varchar(50), nom varchar(50), id_groupe int (10),
-                 foreign key(id_groupe) references groupe(id_grp)
-                 )''')
 mycursor.execute('''create table IF NOT EXISTS talent (id_tal int primary key auto_increment, nom varchar(50)
                  )''')
 mydB.commit()
-mycursor.execute('''create table IF NOT EXISTS groupe (id_grp int primary key auto_increment, nb_membres int, id_projet int,
-                 foreign key(id_projet) references projet(id_prj)
+mycursor.execute('''create table IF NOT EXISTS groupe (id_grp int primary key auto_increment, nb_membres int
                  )''')
 mydB.commit()
+mycursor.execute('''create table IF NOT EXISTS etudiant (id_num int primary key auto_increment, prenom varchar(50), nom varchar(50), id_groupe int (10),
+                 foreign key(id_groupe) references groupe(id_grp)
+                 )''')
 mycursor.execute('''create table IF NOT EXISTS projet (id_prj int primary key auto_increment, nom varchar(50), id_groupe int(10),
                  foreign key(id_groupe) references groupe (id_grp)
                  )''')
@@ -75,7 +74,8 @@ if not isAlreadyDone:
                     ('dessin'),
                     ('graphisme'),
                     ('dessin'),
-                    ('3D');''')
+                    ('3D'),
+                    ('Montage');''')
     mydB.commit()
     mycursor.execute('''update controle set implement=True 
                     where id_table=1;''')

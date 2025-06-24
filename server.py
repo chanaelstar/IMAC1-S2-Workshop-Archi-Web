@@ -15,12 +15,14 @@ database_name = "test"
 liste_etudiants = []
 
 liste_talents = ["Web", "3D", "Dev", "Montage", "Musique", "Dessin"]
-liste_etudiants_talents = [
+""" liste_etudiants_talents = [
     {"num_etudiant": 1, "talent": liste_talents[1]},
     {"num_etudiant": 1, "talent": liste_talents[2]},
     {"num_etudiant": 2, "talent": liste_talents[1]},
     {"num_etudiant": 3, "talent": liste_talents[3]},
-]
+] """
+
+liste_etudiants_talents = []
 
 request_sql.init_database(pswd,database_name)
 ###### Fin SQL ######
@@ -31,7 +33,7 @@ def accueil():
 
 @myapp.route("/liste_etudiants")
 def affichage():
-    request_sql.get_students_info(pswd, database_name, liste_etudiants)
+    request_sql.get_students_info(pswd, database_name, liste_etudiants,liste_etudiants_talents)
     return render_template('affichage_etud.html', liste_etudiants=liste_etudiants , liste_etudiants_talents = liste_etudiants_talents)
 
 

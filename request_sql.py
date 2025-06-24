@@ -105,7 +105,7 @@ def init_database(pswd, database_name):
 
     mycursor.close()
 
-def get_students_info(pswd,database_name, liste_etudiants):
+def get_students_info(pswd,database_name, liste_etudiants, liste_etudiants_talents):
     mydB = mysql.connector.connect (
      host="localhost",
      user="root",
@@ -125,8 +125,15 @@ def get_students_info(pswd,database_name, liste_etudiants):
         if i[0] > len(liste_etudiants):
             liste_etudiants.append(etudiant)
 
-
-
+    mycursor.execute('''select etudiant.id_num, talent.nom from talent
+                     join possede on talent.id_tal = possede.id_talent
+                     join etudiant on possede.id_etud = etudiant.id_num''')
+    for i in mycursor.fetchall():
+        etudiant_talent = {}
+        etudiant_talent["num_etudiant"] = i[0]
+        etudiant_talent["talent"] = i[1]
+        if etudiant_talent not in liste_etudiants_talents:
+            liste_etudiants_talents.append(etudiant_talent)
 
     mycursor.close()
 

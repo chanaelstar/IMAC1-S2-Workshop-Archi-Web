@@ -99,7 +99,7 @@ def affichage():
 
 @myapp.route("/ajout", methods=['GET', 'POST'])
 def ajout():
-    num_etudiant = request.form["num_etudiant"]
+    num_etudiant = int(request.form["num_etudiant"])
     nom = request.form["nom"]
     prenom = request.form["prenom"]
 
@@ -118,7 +118,7 @@ def traitement():
 @myapp.route("/suppression/<int:value>")
 def suppression(value):
     for i in range(len(liste_etudiants)):
-        if (liste_etudiants[i]["num_etudiant"] == value):
+        if liste_etudiants[i]["num_etudiant"] == value:
             liste_etudiants.pop(i)
             break
     return affichage()
@@ -127,18 +127,16 @@ def suppression(value):
 def modification(value):
     etudiant = {}
     for i in range(len(liste_etudiants)):
-        if (liste_etudiants[i]["num_etudiant"] == value):
+        if liste_etudiants[i]["num_etudiant"] == value:
             etudiant = liste_etudiants[i]
             break
     return render_template("modification_page.html", etudiant = etudiant)
 
 @myapp.route("/changement", methods=['POST'])
 def changement():
-    index = 0
     for i in range(len(liste_etudiants)):
-        if (liste_etudiants[i]["num_etudiant"] == request.form["num_etud"]):
-            index = i
+        if str(liste_etudiants[i]["num_etudiant"]) == request.form["num_etud"]:
+            liste_etudiants[i]["nom"] = request.form["nouv_nom"]
+            liste_etudiants[i]["prenom"] = request.form["nouv_prenom"]
             break
-    liste_etudiants[index]["nom"] = request.form["nouv_nom"]
-    liste_etudiants[index]["prenom"] = request.form["nouv_prenom"]
     return affichage()

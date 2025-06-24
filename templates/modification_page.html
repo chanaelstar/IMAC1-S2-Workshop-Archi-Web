@@ -13,6 +13,25 @@
         <p>Numéro d'étudiant: {{etudiant["num_etudiant"]}}</p>
         <p>Nom: {{etudiant["nom"]}}</p>
         <p>Prénom: {{etudiant["prenom"]}}</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Talents</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        {% for talent_etud in liste_etudiants_talents %}
+                            {% if talent_etud["num_etudiant"] == etudiant["num_etudiant"] %}
+                                {{ talent_etud["talent"] }} ,
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td style="border: 2px solid rgb(140 140 140)"><a href='/modification_talents/{{etudiant["num_etudiant"]}}'>Modifier les talents</a></td>
+                </tr>
+            </tbody>
+        </table>
         
         <form action="/changement" method="post">
             <!-- <label for="num_etud">Numéro d'étudiant</label>

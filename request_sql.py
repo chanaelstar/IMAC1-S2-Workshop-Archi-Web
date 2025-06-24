@@ -104,3 +104,15 @@ def init_database(pswd, database_name):
     print(pssd)
 
     mycursor.close()
+
+def get_students_info(pswd,database_name):
+    mydB = mysql.connector.connect (
+     host="localhost",
+     user="root",
+     password = pswd,
+     database= database_name
+    ) 
+
+    mycursor = mydB.cursor()
+    mycursor.close()
+

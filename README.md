@@ -24,5 +24,5 @@ Ce système vise à faciliter la gestion de projets collaboratifs dans un cadre 
 
 ---
 ## Schéma Modèle Conceptuel de la Base de Données
-![Schéma MCD (Modèle Conceptuel de Données)](doc/MCD.png)
-![Schéma relationnel](doc/schema-relationnel.png)
+![Schéma MCD (Modèle Conceptuel de Données)](/doc/MCD.png)
+![Schéma relationnel](/doc/schema-relationnel.png)

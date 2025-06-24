@@ -17,6 +17,14 @@ test = {"num_etudiant": 2, "nom": "Leclerc", "prenom": "Charles"}
 controle = {"num_etudiant": 3, "nom": "ctrl", "prenom": "ctrl"}
 liste_etudiants = [default,test,controle]
 
+liste_talents = ["Web", "3D", "Dev", "Montage", "Musique", "Dessin"]
+liste_etudiants_talents = [
+    {"num_etudiant": 1, "talent": liste_talents[1]},
+    {"num_etudiant": 1, "talent": liste_talents[2]},
+    {"num_etudiant": 2, "talent": liste_talents[1]},
+    {"num_etudiant": 3, "talent": liste_talents[3]},
+]
+
 mycursor =mydB.cursor()
 
 # Création des tables
@@ -94,7 +102,7 @@ def accueil():
 
 @myapp.route("/liste_etudiants")
 def affichage():
-    return render_template('affichage_etud.html', liste_etudiants=liste_etudiants)
+    return render_template('affichage_etud.html', liste_etudiants=liste_etudiants , liste_etudiants_talents = liste_etudiants_talents)
 
 
 @myapp.route("/ajout", methods=['GET', 'POST'])

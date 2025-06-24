@@ -15,8 +15,8 @@
         <p>Prénom: {{etudiant["prenom"]}}</p>
         
         <form action="/changement" method="post">
-            <label for="num_etud">Numéro d'étudiant</label>
-            <input type="number" name="num_etud" id="num_etud" value='{{etudiant["num_etudiant"]}}' readonly/>
+            <!-- <label for="num_etud">Numéro d'étudiant</label>
+            <input type="number" name="num_etud" id="num_etud" value='{{etudiant["num_etudiant"]}}' readonly/> -->
             <label for="nouv_nom">Nouveau Nom</label>
             <input type="text" name="nouv_nom" id="nouv_nom" value='{{etudiant["nom"]}}' />
             <label for="nouv_prenom">Nouveau Prénom</label>

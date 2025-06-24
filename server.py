@@ -67,7 +67,7 @@ def modification(value):
         if liste_etudiants[i]["num_etudiant"] == value:
             etudiant = liste_etudiants[i]
             break
-    return render_template("modification_page.html", etudiant = etudiant)
+    return render_template("modification_page.html", etudiant = etudiant, liste_etudiants_talents = liste_etudiants_talents)
 
 @myapp.route("/changement", methods=['POST'])
 def changement():

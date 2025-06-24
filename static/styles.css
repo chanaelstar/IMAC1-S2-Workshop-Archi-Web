@@ -85,6 +85,38 @@ button:hover {
     background-color: #1c5980;
 }
 
+.talents-box {
+    background-color: white;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 5px;
+    max-width: 500px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.talents-box strong {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.talents-box p {
+    margin: 0 0 10px 0;
+}
+
+.modifier-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #2980b9;
+    color: white;
+    text-decoration: none;
+    border-radius: 3px;
+    transition: background-color 0.2s;
+}
+
+.modifier-btn:hover {
+    background-color: #1c5980;
+}
 /* Liens simples */
 a {
     display: inline-block;
@@ -95,4 +127,11 @@ a {
 
 a:hover {
     text-decoration: underline;
+}
+
+/*Accueil*/
+.accueil {
+    text-align: center;
+    max-width: 1000px;
+    margin: 10px auto;
 }

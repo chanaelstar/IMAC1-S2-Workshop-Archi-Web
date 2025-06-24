@@ -13,7 +13,7 @@
         <p>Numéro d'étudiant: {{etudiant["num_etudiant"]}}</p>
         <p>Nom: {{etudiant["nom"]}}</p>
         <p>Prénom: {{etudiant["prenom"]}}</p>
-        <table>
+        <!-- <table>
             <thead>
                 <tr>
                     <th>Talents</th>
@@ -31,17 +31,29 @@
                     <td style="border: 2px solid rgb(140 140 140)"><a href='/modification_talents/{{etudiant["num_etudiant"]}}'>Modifier les talents</a></td>
                 </tr>
             </tbody>
-        </table>
+        </table> -->
         
         <form action="/changement" method="post">
             <!-- <label for="num_etud">Numéro d'étudiant</label>
             <input type="number" name="num_etud" id="num_etud" value='{{etudiant["num_etudiant"]}}' readonly/> -->
-            <label for="nouv_nom">Nouveau Nom</label>
+            <label for="nouv_nom">Nouveau Nom :</label>
             <input type="text" name="nouv_nom" id="nouv_nom" value='{{etudiant["nom"]}}' />
-            <label for="nouv_prenom">Nouveau Prénom</label>
+            <label for="nouv_prenom">Nouveau Prénom : </label>
             <input type="text" name="nouv_prenom" id="nouv_prenom" value='{{etudiant["prenom"]}}' />
             <input type="submit"></input>
         </form>
+
+        <div class="talents-box">
+            <strong>Talents :</strong>
+            
+                {% for talent_etud in liste_etudiants_talents %}
+                    {% if talent_etud["num_etudiant"] == etudiant["num_etudiant"] %}
+                        <li>{{ talent_etud["talent"] }}</li>
+                    {% endif %}
+                {% endfor %}
+            
+            <a class="modifier-btn" href='/modification_talents/{{etudiant["num_etudiant"]}}'>Modifier les talents</a>
+        </div>
         
     </body>
 </html>

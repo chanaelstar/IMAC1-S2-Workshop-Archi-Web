@@ -164,6 +164,7 @@ def get_students_info(pswd,database_name, liste_etudiants, liste_etudiants_talen
         etudiant["num_etudiant"] = i[0]
         etudiant["prenom"] = i[1]
         etudiant["nom"] = i[2]
+        etudiant["groupe"] = i[3]
         
         liste_etudiants.append(etudiant)
 

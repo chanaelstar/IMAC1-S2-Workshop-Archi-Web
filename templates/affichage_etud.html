@@ -21,6 +21,7 @@
                     <th>Nom</th>
                     <th>Prénom</th>
                     <th>Talents</th>
+                    <th>Groupe</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,6 +37,7 @@
                                 {% endif %}
                             {% endfor %}
                         </td>
+                        <td>{{ etudiant["groupe"] }}</td>
                         <td style="border: 2px solid rgb(140 140 140)"><a href='/modification/{{etudiant["num_etudiant"]}}'>Modifier les Informations</a></td>
                         <td style="border: 2px solid rgb(140 140 140)"><a href='/suppression/{{etudiant["num_etudiant"]}}'>Supprimer un étudiant</a></td>
                     </tr>

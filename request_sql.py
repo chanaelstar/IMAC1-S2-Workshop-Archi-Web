@@ -14,7 +14,7 @@ def init_database(pswd, database_name):
     mycursor.execute('''create table IF NOT EXISTS talent (id_tal int primary key auto_increment, nom varchar(50)
                     )''')
     mydB.commit()
-    mycursor.execute('''create table IF NOT EXISTS groupe (id_grp int primary key auto_increment = 0, nom varchar(50), nb_membres int
+    mycursor.execute('''create table IF NOT EXISTS groupe (id_grp int primary key auto_increment, nom varchar(50), nb_membres int
                     )''')
     mydB.commit()
     mycursor.execute('''create table IF NOT EXISTS etudiant (id_num int primary key auto_increment, prenom varchar(50), nom varchar(50), id_groupe int (10),
@@ -86,11 +86,11 @@ def init_database(pswd, database_name):
     isAlreadyDone = mycursor.fetchone()[0]
     if not isAlreadyDone:
         mycursor.execute(''' insert into etudiant (prenom, nom, id_groupe) values
-                        ('Bob','leponge', 1),
-                        ('Dora','lexploratrice', 1),
-                        ('koro','sensei', 1),
-                        ('2','Scream', 2),
-                        ('II','Gladiator', 2);''')
+                        ('Bob','leponge', 2),
+                        ('Dora','lexploratrice', 2),
+                        ('koro','sensei', 2),
+                        ('2','Scream', 3),
+                        ('II','Gladiator', 3);''')
         mydB.commit()
         mycursor.execute('''update controle set implement=True 
                         where id_table=2;''')

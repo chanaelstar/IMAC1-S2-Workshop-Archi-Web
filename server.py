@@ -14,7 +14,7 @@ database_name = "test"
 # controle = {"num_etudiant": 3, "nom": "ctrl", "prenom": "ctrl"}
 liste_etudiants = []
 
-liste_talents = ["Web", "3D", "Dev", "Montage", "Musique", "Dessin"]
+liste_talents = []
 """ liste_etudiants_talents = [
     {"num_etudiant": 1, "talent": liste_talents[1]},
     {"num_etudiant": 1, "talent": liste_talents[2]},
@@ -25,6 +25,7 @@ liste_talents = ["Web", "3D", "Dev", "Montage", "Musique", "Dessin"]
 liste_etudiants_talents = []
 
 request_sql.init_database(pswd,database_name)
+request_sql.init_liste_talents(pswd, database_name, liste_talents)
 ###### Fin SQL ######
 
 @myapp.route("/")

@@ -145,6 +145,19 @@ def init_database(pswd, database_name):
 
     mycursor.close()
 
+def init_liste_talents(pswd,database_name, liste_talents):
+    mydB = mysql.connector.connect (
+     host="localhost",
+     user="root",
+     password = pswd,
+     database= database_name
+    ) 
+    mycursor = mydB.cursor()
+
+    mycursor.execute('''select * from talent;''')
+    liste_talents = mycursor.fetchall();
+    mycursor.close()
+
 def get_students_info(pswd,database_name, liste_etudiants, liste_etudiants_talents):
     mydB = mysql.connector.connect (
      host="localhost",

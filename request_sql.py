@@ -71,7 +71,9 @@ def init_database(pswd, database_name):
                     where id_table=4; ''')
     isAlreadyDone = mycursor.fetchone()[0]
     if not isAlreadyDone:
-        mycursor.execute(''' insert into groupe (nom, nb_membres) values ('movieStars', 3);''')
+        mycursor.execute(''' insert into groupe (nom, nb_membres) values 
+                         ('movieStars', 3),
+                         ('movies', 2);''')
         mydB.commit()
         mycursor.execute('''update controle set implement=True 
                         where id_table=4;''')
@@ -85,7 +87,9 @@ def init_database(pswd, database_name):
         mycursor.execute(''' insert into etudiant (prenom, nom, id_groupe) values
                         ('Bob','leponge', 1),
                         ('Dora','lexploratrice', 1),
-                        ('koro','sensei', 1);''')
+                        ('koro','sensei', 1),
+                        ('2','Scream', 2),
+                        ('II','Gladiator', 2);''')
         mydB.commit()
         mycursor.execute('''update controle set implement=True 
                         where id_table=2;''')
@@ -99,7 +103,10 @@ def init_database(pswd, database_name):
         mycursor.execute(''' insert into possede (id_etud, id_talent) values 
                          (1,2),
                          (1,4), 
-                         (2,6);''')
+                         (2,6),
+                         (4,1),
+                         (4,3),
+                         (5,1);''')
         mydB.commit()
         mycursor.execute('''update controle set implement=True 
                         where id_table=5;''')
@@ -111,13 +118,14 @@ def init_database(pswd, database_name):
     isAlreadyDone = mycursor.fetchone()[0]
     if not isAlreadyDone:
         mycursor.execute(''' insert into projet (nom, id_groupe) values 
-                         ('Collab', 1);''')
+                         ('Collab', 1),
+                         ('Sequel', 2);''')
         mydB.commit()
         mycursor.execute('''update controle set implement=True 
                         where id_table=6;''')
         mydB.commit()
 
-    ### Affichage initial dans concole ###
+    ### Affichage initial dans console ###
     mycursor.execute('''select * from etudiant''')
     etud=mycursor.fetchall()
     print(etud)

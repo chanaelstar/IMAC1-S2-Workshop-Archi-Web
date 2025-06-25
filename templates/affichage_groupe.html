@@ -29,12 +29,11 @@
                     <tr>
                         <td>{{ groupe["num_groupe"] }}</td>
                         <td>{{ groupe["nom"] }}</td>
-                        <td>liste_projets[groupe["num_groupe"]]</td>
-                        <!--  -->
+                        <td>{{ liste_projets[groupe["num_groupe"]-1] }}</td>
                         <td>{{ groupe["membres"] }}</td>
                         <td>
                             {% for talent_groupe in liste_groupes_talents %}
-                                {% if talent_groupe["num_etudiant"] == groupe["num_etudiant"] %}
+                                {% if talent_groupe["num_groupe"] == groupe["num_groupe"] %}
                                     {{ talent_groupe["talent"] }} ,
                                 {% endif %}
                             {% endfor %}

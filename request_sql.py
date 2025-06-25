@@ -333,8 +333,18 @@ def changement_infos_etud(pswd, database_name, num_etud, request):
                      ''';'''
                      )
     mycursor.execute('''update etudiant set prenom= "''' + request.form["nouv_prenom"] +
-                     '''" where id_num=''' + str(num_etud)
+                     '''" where id_num=''' + str(num_etud)+ 
+                     ''';'''
                     )
+    mycursor.execute('''update groupe
+                     join etudiant on groupe.id_grp = etudiant.id_groupe 
+                     set nb_membres = nb_membres - 1
+                     where etudiant.id_num =  ''' + str(num_etud) + ''';''')
+    mycursor.execute('''update groupe set nb_membres = nb_membres + 1 
+                     where id_grp = "''' + request.form["nouv_grp"] +'''" ; ''')
+    mycursor.execute('''update etudiant 
+                    set id_groupe = "''' + request.form["nouv_grp"] +'''"
+                    where  id_num =  ''' + str(num_etud) + ''';''')
     mydB.commit()
     
     # mycursor.execute('''select * from etudiant where id_num=''' + str(num_etud) + ''';''')
@@ -396,4 +406,24 @@ def add_group(pswd, database_name, request):
     mycursor.execute('''insert into groupe (nom) values (+"''' 
                       + request.form["nom"] + '''");'''  )
     mydB.commit()
+    mycursor.close()
+
+
+def changement_infos_grp(pswd, database_name, num_grp, request):
+    mydB = mysql.connector.connect (
+    host="localhost",
+    user="root",
+    password=pswd,
+    database=database_name
+    )
+    mycursor = mydB.cursor()
+
+    mycursor.execute('''update groupe set nom= "''' + request.form["nouv_nom"] +
+                     '''" where id_grp=''' + str(num_grp) + 
+                     ''';'''
+                     )
+    mycursor.execute('''update projet set nom= "''' + request.form["nouv_projet"] +
+                     '''" where id_groupe=''' + str(num_grp)
+                     )
+
     mycursor.close()

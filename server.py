@@ -131,3 +131,19 @@ def ajout_groupe():
 @myapp.route("/traitement_groupe")
 def traitement_groupe():
     return render_template("ajout_groupe.html")
+
+@myapp.route("/modification_grp/<int:id_grp>")
+def modif_groupe (id_grp):
+    groupe = {}
+    for i in range(len(liste_groupes)):
+        if liste_groupes[i]["num_groupe"] == id_grp:
+            groupe = liste_groupes[i]
+            break
+    return render_template("modification_groupe_page.html", groupe = groupe, liste_projets = liste_projets)
+
+@myapp.route("/changement_grp/<int:num_grp>", methods=['POST'])
+def changement_grp(num_grp):
+
+    request_sql.changement_infos_grp(pswd, database_name, num_grp, request)
+
+    return affichage()

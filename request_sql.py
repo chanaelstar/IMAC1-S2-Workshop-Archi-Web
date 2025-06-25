@@ -383,3 +383,23 @@ def add_group(pswd, database_name, request):
                       + request.form["nom"] + '''");'''  )
     mydB.commit()
     mycursor.close()
+
+
+def changement_infos_grp(pswd, database_name, num_grp, request):
+    mydB = mysql.connector.connect (
+    host="localhost",
+    user="root",
+    password=pswd,
+    database=database_name
+    )
+    mycursor = mydB.cursor()
+
+    mycursor.execute('''update groupe set nom= "''' + request.form["nouv_nom"] +
+                     '''" where id_grp=''' + str(num_grp) + 
+                     ''';'''
+                     )
+    mycursor.execute('''update projet set nom= "''' + request.form["nouv_projet"] +
+                     '''" where id_groupe=''' + str(num_grp)
+                     )
+
+    mycursor.close()

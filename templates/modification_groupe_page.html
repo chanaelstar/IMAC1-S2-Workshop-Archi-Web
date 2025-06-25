@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link href="/static/styles.css" rel="stylesheet">
+        <title>Workshop E3 IMAC</title>
+    </head>
+
+    <body>
+        <h1>Informations </h1>
+        
+        <p>Numéro du groupe: {{groupe["num_groupe"]}}</p>
+        <p>Nom: {{groupe["nom"]}}</p>
+        <p>Nom du projet: {{ liste_projets[groupe["num_groupe"]-1] }}</p>
+        
+        <form action='/changement_grp/{{groupe["num_groupe"]}}' method="post">
+            <label for="nouv_nom">Nouveau Nom :</label>
+            <input type="text" name="nouv_nom" id="nouv_nom" value='{{groupe["nom"]}}' />
+            <label for="nouv_projet">Nouveau Projet : </label>
+            <input type="text" name="nouv_projet" id="nouv_projet" value='{{ liste_projets[groupe["num_groupe"]-1] }}' />
+            <input type="submit"></input>
+        </form>
+
+        
+    </body>
+</html>

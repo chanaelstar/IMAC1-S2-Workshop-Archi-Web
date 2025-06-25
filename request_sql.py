@@ -364,3 +364,17 @@ def get_groups_info(pswd, database_name, liste_groupes, liste_groupes_talents, l
         liste_groupes_talents.append(groupe_talent)
     
     mycursor.close()
+
+def add_group(pswd, database_name, request):
+    mydB = mysql.connector.connect (
+    host="localhost",
+    user="root",
+    password=pswd,
+    database=database_name
+    )
+    mycursor = mydB.cursor()
+
+    mycursor.execute('''insert into groupe (nom) values (+"''' 
+                      + request.form["nom"] + '''");'''  )
+    mydB.commit()
+    mycursor.close()

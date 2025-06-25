@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link href="/static/styles.css" rel="stylesheet">
+        <title>Workshop E3 IMAC</title>
+    </head>
+
+    <body>
+        <h1>Ajouter un groupe</h1>
+        <form action="/ajout_groupe" method="POST">
+            <label for="nom">Nom :</label>
+            <input type="text" id="nom" name="nom" required><br>
+
+
+            <input type="submit" value="Ajouter">
+        </form>
+        <br>
+        <a href="/liste_etudiants">Retour à la liste</a>
+    </body>
+
+</html>

@@ -122,3 +122,12 @@ def changement_talents():
 def affichage_groupes():
     request_sql.get_groups_info(pswd, database_name, liste_groupes, liste_groupes_talents, liste_projets) 
     return render_template('affichage_groupe.html', liste_groupes=liste_groupes , liste_groupes_talents = liste_groupes_talents, liste_projets = liste_projets)
+
+@myapp.route("/ajout_groupe", methods=['GET', 'POST'])
+def ajout_groupe():
+    request_sql.add_group(pswd, database_name, request)
+    return affichage_groupes()
+
+@myapp.route("/traitement_groupe")
+def traitement_groupe():
+    return render_template("ajout_groupe.html")

@@ -55,11 +55,10 @@ def init_database(pswd, database_name):
     isAlreadyDone = mycursor.fetchone()[0]
     if not isAlreadyDone:
         mycursor.execute(''' insert into talent (nom) values
-                        ('dev'),
-                        ('musique'),
-                        ('dessin'),
-                        ('graphisme'),
-                        ('dessin'),
+                        ('Dev'),
+                        ('Musique'),
+                        ('Dessin'),
+                        ('Graphisme'),
                         ('3D'),
                         ('Montage');''')
         mydB.commit()

@@ -146,9 +146,9 @@ def add_student(pswd, database_name, request):
 
     mycursor = mydB.cursor()
 
-    mycursor.execute('''insert into etudiant (prenom, nom) values (''' 
-                     + request.form["prenom"] + ''',''' 
-                     + request.form["nom"] + ''');'''  )
+    mycursor.execute('''insert into etudiant (prenom, nom) values (+"''' 
+                     + request.form["prenom"] + '''","''' 
+                     + request.form["nom"] + '''");'''  )
     mydB.commit()
 
     mycursor.close()

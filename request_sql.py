@@ -119,8 +119,9 @@ def init_database(pswd, database_name):
     isAlreadyDone = mycursor.fetchone()[0]
     if not isAlreadyDone:
         mycursor.execute(''' insert into projet (nom, id_groupe) values 
-                         ('Collab', 1),
-                         ('Sequel', 2);''')
+                         ('Aucun', 1),
+                         ('Collab', 2),
+                         ('Sequel', 3);''')
         mydB.commit()
         mycursor.execute('''update controle set implement=True 
                         where id_table=6;''')

@@ -1,18 +1,26 @@
 Chanaël
-- MCD +schéma relationnel
+- MCD + schéma relationnel
 - rédaction du README
 - affichage exemple
 - ajout exemple
 - affichage en interaction avec la base de données
 - ajout CSS 
+- testeuse officielle 
+- ajout de groupe
+- début de la diapo pour la présentation du vendredi
+- MCD final
 
 Emilie
 - Creation base de données sql
 - modification de nom / prenom en interaction avec la base de données
+- affichage & modification groupe
+- suppression des étudiants
+
 
 Léo
 - suppression exemple
 - modif exemple
 - affichage talents exemple et modification
 - gestion d'erreurs 
+- modification & affichage des talents
 

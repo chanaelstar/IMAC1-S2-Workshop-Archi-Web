@@ -250,3 +250,30 @@ def suppression(pswd, database_name, value):
                      )
     mydB.commit()
     mycursor.close()
+
+def changement_infos_etud(pswd, database_name, num_etud):
+    mydB = mysql.connector.connect (
+     host="localhost",
+     user="root",
+     password=pswd,
+     database=database_name
+    )
+    mycursor =mydB.cursor()
+
+    # mycursor.execute('''select * from etudiant where id_num=''' + str(num_etud) + ''';''')
+    # print(type(mycursor.fetchone()[2]))
+    # mydB.commit()
+
+    mycursor.execute('''update etudiant set nom= "''' + request.form["nouv_nom"] +
+                     '''" where id_num=''' + str(num_etud) + 
+                     ''';'''
+                     )
+    mycursor.execute('''update etudiant set prenom= "''' + request.form["nouv_prenom"] +
+                     '''" where id_num=''' + str(num_etud)
+                    )
+    mydB.commit()
+    
+    # mycursor.execute('''select * from etudiant where id_num=''' + str(num_etud) + ''';''')
+    # print(mycursor.fetchone())
+    # mydB.commit()
+    mycursor.close()

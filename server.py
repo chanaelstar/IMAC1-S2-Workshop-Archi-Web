@@ -75,40 +75,15 @@ def modification(value):
     return render_template("modification_page.html", etudiant = etudiant, liste_etudiants_talents = liste_etudiants_talents)
 
 @myapp.route("/changement/<int:num_etud>", methods=['POST'])
-def changement(num_etud):
-    mydB = mysql.connector.connect (
-     host="localhost",
-     user="root",
-     password=pswd,
-     database=database_name
-    )
-    mycursor =mydB.cursor()
+def changement(pswd, database_name, num_etud):
 
-    mycursor.execute('''select * from etudiant where id_num=''' + str(num_etud) + ''';''')
-    print(type(mycursor.fetchone()[2]))
-    mydB.commit()
+    request_sql.changement_infos_etud(pswd, database_name, num_etud)
+    # for i in range(len(liste_etudiants)):
+    #     if liste_etudiants[i]["num_etudiant"] == num_etud:
+    #         liste_etudiants[i]["nom"] = request.form["nouv_nom"]
+    #         liste_etudiants[i]["prenom"] = request.form["nouv_prenom"]
+    #         break
 
-    mycursor.execute('''update etudiant set nom= "''' + request.form["nouv_nom"] +
-                     '''" where id_num=''' + str(num_etud) + 
-                     ''';'''
-                     )
-    mycursor.execute('''update etudiant set prenom= "''' + request.form["nouv_prenom"] +
-                     '''" where id_num=''' + str(num_etud)
-                    )
-    mydB.commit()
-    
-
-    mycursor.execute('''select * from etudiant where id_num=''' + str(num_etud) + ''';''')
-    print(mycursor.fetchone())
-    mydB.commit()
-
-    for i in range(len(liste_etudiants)):
-        if liste_etudiants[i]["num_etudiant"] == num_etud:
-            liste_etudiants[i]["nom"] = request.form["nouv_nom"]
-            liste_etudiants[i]["prenom"] = request.form["nouv_prenom"]
-            break
-
-    mycursor.close()
     return affichage()
 
 @myapp.route("/modification_talents/<int:value>")

@@ -167,14 +167,14 @@ def get_students_info(pswd,database_name, liste_etudiants, liste_etudiants_talen
         
         liste_etudiants.append(etudiant)
 
-    mycursor.execute('''select etudiant.id_num, talent.nom from talent
+    mycursor.execute('''select etudiant.id_num, talent.id_tal, talent.nom from talent
                      join possede on talent.id_tal = possede.id_talent
                      join etudiant on possede.id_etud = etudiant.id_num''')
     for i in mycursor.fetchall():
         etudiant_talent = {}
         etudiant_talent["num_etudiant"] = i[0]
-        etudiant_talent["talent"] = i[1]
-
+        etudiant_talent["id_talent"] = i[1]
+        etudiant_talent["nom_talent"] = i[2]
         liste_etudiants_talents.append(etudiant_talent)
 
     mycursor.close()
@@ -206,7 +206,7 @@ def students_current_talents(pswd, database_name, num_etud, liste_possede):
 
     mycursor = mydB.cursor()
     
-    mycursor.execute('''select talent.nom from talent
+    mycursor.execute('''select * from talent
                         join possede on talent.id_tal = possede.id_talent
                         where possede.id_etud  = ''' + str(num_etud) + ''';''')
     for talent in mycursor.fetchall():
@@ -214,7 +214,7 @@ def students_current_talents(pswd, database_name, num_etud, liste_possede):
 
     mycursor.close()
 
-def modifiy_students_talents(pswd, database_name, request, liste_nouv_talents, liste_autres_talents):
+def modifiy_students_talents(pswd, database_name, request, liste_nouv_talents, liste_anciens_talents):
     mydB = mysql.connector.connect (
      host="localhost",
      user="root",
@@ -223,9 +223,34 @@ def modifiy_students_talents(pswd, database_name, request, liste_nouv_talents, l
     )
 
     mycursor = mydB.cursor()
-    mycursor.execute('''select count(id_tal) from talent;''')
-    print(mycursor.fetchall())
-    print(type(mycursor.fetchall()))
+    
+    for i in range(len(request.form.getlist("talents"))):
+        liste_nouv_talents.append((int(request.form["num_etud"]),int(request.form.getlist("talents")[i])))
+
+    mycursor.execute('''select * from possede
+                     where id_etud = ''' + request.form["num_etud"] + ''';''')
+    liste_anciens_talents = mycursor.fetchall()
+    
+    liste_selection = []
+    #trie entre les nouveaux talents et les anciens 
+    for talent in liste_anciens_talents:
+        if talent in liste_nouv_talents:
+            liste_selection.append((talent[0], talent[1], "present"))
+        else:
+            liste_selection.append((talent[0], talent[1], "delete"))
+    #vérifie si un nouveau talent doit être ajouté 
+    for talent in liste_nouv_talents:
+        if talent not in liste_anciens_talents:
+            liste_selection.append((talent[0],talent[1], "add"))
+
+    for talent in liste_selection:
+        if talent[2] == "delete":
+            mycursor.execute('''delete from possede where id_talent= ''' + talent[1] + ''';''')
+            mydB.commit()
+        elif talent[2] == "add":
+            mycursor.execute('''insert into possede (id_etud,id_talent) values
+                             (''' + talent[0] + ''', ''' + talent[1] + ''');''')
+            mydB.commit()
     mycursor.close()
 
 def suppression(pswd, database_name, value):

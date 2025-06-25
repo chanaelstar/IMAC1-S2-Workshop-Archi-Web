@@ -27,12 +27,12 @@
                 {% for etudiant in liste_etudiants %}
                     <tr>
                         <td>{{ etudiant["num_etudiant"] }}</td>
-                        <td>{{ etudiant["nom"] }}</t>
+                        <td>{{ etudiant["nom"] }}</td>
                         <td>{{ etudiant["prenom"] }}</td>
                         <td>
                             {% for talent_etud in liste_etudiants_talents %}
                                 {% if talent_etud["num_etudiant"] == etudiant["num_etudiant"] %}
-                                    {{ talent_etud["talent"] }} ,
+                                    {{ talent_etud["nom_talent"] }} ,
                                 {% endif %}
                             {% endfor %}
                         </td>

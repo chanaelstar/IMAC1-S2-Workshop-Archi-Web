@@ -50,7 +50,7 @@
             
                 {% for talent_etud in liste_etudiants_talents %}
                     {% if talent_etud["num_etudiant"] == etudiant["num_etudiant"] %}
-                        <li>{{ talent_etud["talent"] }}</li>
+                        <li>{{ talent_etud["nom_talent"] }}</li>
                     {% endif %}
                 {% endfor %}
             

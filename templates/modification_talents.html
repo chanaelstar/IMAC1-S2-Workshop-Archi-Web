@@ -16,10 +16,10 @@
             <input type="number" name="num_etud" id="num_etud" value='{{num_etud}}' readonly/>
             {% for talent in liste_talents %}
                 {% if talent in liste_possede %}
-                    <input type="checkbox" name='talents' id='{{talent}}' value="{{talent}}" checked/> {{talent}}
+                    <input type="checkbox" name='talents' id='{{talent[0]}}' value="{{talent[0]}}" checked/> {{talent[1]}}
                     <br>
                 {% else %}
-                    <input type="checkbox" name='talents' id='{{talent}}' value="{{talent}}"/> {{talent}}
+                    <input type="checkbox" name='talents' id='{{talent[0]}}' value="{{talent[0]}}"/> {{talent[1]}}
                     <br>
                 {% endif %}
             {% endfor %}

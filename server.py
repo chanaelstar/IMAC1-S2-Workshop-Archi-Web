@@ -98,16 +98,16 @@ def modification_talents(value):
 @myapp.route("/changement_talents", methods=['POST'])
 def changement_talents():
     liste_nouv_talents = []
-    liste_autres_talents = []
-    for i in range(len(request.form.getlist("talents"))):
+    liste_anciens_talents = []
+    """ for i in range(len(request.form.getlist("talents"))):
         liste_nouv_talents.append({"num_etudiant": int(request.form["num_etud"]), "talent": request.form.getlist("talents")[i]})
     for i in range(len(liste_etudiants_talents)):
         if str(liste_etudiants_talents[i]["num_etudiant"]) != request.form["num_etud"]:
-            liste_autres_talents.append(liste_etudiants_talents[i])
+            liste_anciens_talents.append(liste_etudiants_talents[i])
     liste_etudiants_talents.clear()
-    for i in range(len(liste_autres_talents)):
-        liste_etudiants_talents.append(liste_autres_talents[i])
+    for i in range(len(liste_anciens_talents)):
+        liste_etudiants_talents.append(liste_anciens_talents[i])
     for i in range(len(liste_nouv_talents)):
-        liste_etudiants_talents.append(liste_nouv_talents[i])
-    request_sql.modifiy_students_talents(pswd,database_name, request, liste_nouv_talents, liste_autres_talents)
+        liste_etudiants_talents.append(liste_nouv_talents[i]) """
+    request_sql.modifiy_students_talents(pswd,database_name, request, liste_nouv_talents, liste_anciens_talents)
     return affichage()

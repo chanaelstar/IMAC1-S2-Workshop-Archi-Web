@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link href="/static/styles.css" rel="stylesheet">
+        <title>Workshop E3 IMAC</title>
+    </head>
+
+    <body>
+        <h1>Liste des groupes</h1>
+    
+        <p>Voici la liste des groupes de projets :</p>
+        <ul>
+
+        <!-- Affichage de la liste des étudiants  -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Numéro de groupe</th>
+                    <th>Nom</th>
+                    <th>Projet</th>
+                    <th>Membres</th>
+                    <th>Talents</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for groupe in liste_groupes %}
+                    <tr>
+                        <td>{{ groupe["num_groupe"] }}</td>
+                        <td>{{ groupe["nom"] }}</td>
+                        <td>liste_projets[groupe["num_groupe"]]</td>
+                        <!--  -->
+                        <td>{{ groupe["membres"] }}</td>
+                        <td>
+                            {% for talent_groupe in liste_groupes_talents %}
+                                {% if talent_groupe["num_etudiant"] == groupe["num_etudiant"] %}
+                                    {{ talent_groupe["talent"] }} ,
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <!-- <td style="border: 2px solid rgb(140 140 140)"><a href='/modification_grp/{{groupe["num_groupe"]}}'>Modifier les Informations</a></td>
+                        <td style="border: 2px solid rgb(140 140 140)"><a href='/suppression_grp/{{groupe["num_groupe"]}}'>Supprimer un groupe</a></td> -->
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+
+        <a href="/traitement_groupe">
+            <button>Ajouter un groupe</button>
+        </a>
+        
+    </body>
+</html>

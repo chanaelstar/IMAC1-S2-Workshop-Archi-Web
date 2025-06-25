@@ -315,3 +315,45 @@ def changement_infos_etud(pswd, database_name, num_etud, request):
     # print(mycursor.fetchone())
     # mydB.commit()
     mycursor.close()
+
+def get_groups_info(pswd, database_name, liste_groupes, liste_groupes_talents, liste_projets):
+    mydB = mysql.connector.connect (
+    host="localhost",
+    user="root",
+    password=pswd,
+    database=database_name
+    )
+    mycursor =mydB.cursor()
+
+    liste_groupes_talents.clear()
+    liste_groupes.clear()
+    liste_projets.clear()
+
+    mycursor.execute('''select * from groupe;''')
+    for i in mycursor.fetchall():
+        groupe = {}
+        groupe["num_groupe"] = i[0]
+        groupe["nom"] = i[1]
+        groupe["membres"] = i[2]
+
+        liste_groupes.append(groupe)
+
+    mycursor.execute('''select projet.nom from projet
+                     join groupe on projet.id_groupe = groupe.id_grp
+                     order by id_groupe;''')
+    for i in mycursor.fetchall():
+        projet = i[0]
+        liste_projets.append(projet)
+
+    mycursor.execute('''select distinct groupe.id_grp, talent.nom from talent
+                     join possede on talent.id_tal = possede.id_talent
+                     join etudiant on possede.id_etud = etudiant.id_num
+                     join groupe on etudiant.id_groupe = groupe.id_grp''')
+    for i in mycursor.fetchall():
+        groupe_talent = {}
+        groupe_talent["num_groupe"] = i[0]
+        groupe_talent["talent"] = i[1]
+
+        liste_groupes_talents.append(groupe_talent)
+    
+    mycursor.close()

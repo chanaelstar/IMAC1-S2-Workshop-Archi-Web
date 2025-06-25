@@ -24,6 +24,10 @@ liste_talents = []
 
 liste_etudiants_talents = []
 
+liste_groupes = []
+liste_groupes_talents = []
+liste_projets = []
+
 request_sql.init_database(pswd,database_name)
 request_sql.init_liste_talents(pswd, database_name, liste_talents)
 ###### Fin SQL ######
@@ -111,4 +115,10 @@ def changement_talents():
     for i in range(len(liste_nouv_talents)):
         liste_etudiants_talents.append(liste_nouv_talents[i]) """
     request_sql.modifiy_students_talents(pswd,database_name, request, liste_nouv_talents, liste_anciens_talents)
+    print(liste_talents)
     return affichage()
+
+@myapp.route("/liste_groupes")
+def affichage_groupes():
+    request_sql.get_groups_info(pswd, database_name, liste_groupes, liste_groupes_talents, liste_projets) 
+    return render_template('affichage_groupe.html', liste_groupes=liste_groupes , liste_groupes_talents = liste_groupes_talents, liste_projets = liste_projets)

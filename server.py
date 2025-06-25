@@ -39,7 +39,7 @@ def affichage():
 
 @myapp.route("/ajout", methods=['GET', 'POST'])
 def ajout():
-    num_etudiant = int(request.form["num_etudiant"])
+    """ num_etudiant = int(request.form["num_etudiant"])
     nom = request.form["nom"]
     prenom = request.form["prenom"]
 
@@ -48,7 +48,8 @@ def ajout():
         "nom": nom,
         "prenom": prenom
     }
-    liste_etudiants.append(etudiant)
+    liste_etudiants.append(etudiant) """
+    request_sql.add_student(pswd,database_name,request)
     return affichage()
 
 @myapp.route("/traitement")

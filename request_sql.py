@@ -113,7 +113,6 @@ def get_students_info(pswd,database_name, liste_etudiants, liste_etudiants_talen
      database= database_name
     ) 
 
-
     mycursor = mydB.cursor()
 
     mycursor.execute('''select * from etudiant''')
@@ -137,3 +136,19 @@ def get_students_info(pswd,database_name, liste_etudiants, liste_etudiants_talen
 
     mycursor.close()
 
+def add_student(pswd, database_name, request):
+    mydB = mysql.connector.connect (
+     host="localhost",
+     user="root",
+     password = pswd,
+     database= database_name
+    )
+
+    mycursor = mydB.cursor()
+
+    mycursor.execute('''insert into etudiant (prenom, nom) values (''' 
+                     + request.form["prenom"] + ''',''' 
+                     + request.form["nom"] + ''');'''  )
+    mydB.commit()
+
+    mycursor.close()

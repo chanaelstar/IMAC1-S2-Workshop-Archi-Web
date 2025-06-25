@@ -258,11 +258,11 @@ def modifiy_students_talents(pswd, database_name, request, liste_nouv_talents, l
 
     for talent in liste_selection:
         if talent[2] == "delete":
-            mycursor.execute('''delete from possede where id_talent= ''' + talent[1] + ''';''')
+            mycursor.execute('''delete from possede where id_talent= ''' + str(talent[1]) + ''';''')
             mydB.commit()
         elif talent[2] == "add":
             mycursor.execute('''insert into possede (id_etud,id_talent) values
-                             (''' + talent[0] + ''', ''' + talent[1] + ''');''')
+                             (''' + str(talent[0]) + ''', ''' + str(talent[1]) + ''');''')
             mydB.commit()
     mycursor.close()
 

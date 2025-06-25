@@ -15,7 +15,7 @@
             <label for="num_etud">Numéro d'étudiant</label>
             <input type="number" name="num_etud" id="num_etud" value='{{num_etud}}' readonly/>
             {% for talent in liste_talents %}
-                {% if talent in liste_possede %}
+                {% if talent[0] in liste_possede %}
                     <input type="checkbox" name='talents' id='{{talent[0]}}' value="{{talent[0]}}" checked/> {{talent[1]}}
                     <br>
                 {% else %}

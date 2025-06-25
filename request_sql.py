@@ -221,12 +221,10 @@ def students_current_talents(pswd, database_name, num_etud, liste_possede):
 
     mycursor = mydB.cursor()
     
-    mycursor.execute('''select * from talent
-                        join possede on talent.id_tal = possede.id_talent
-                        where possede.id_etud  = ''' + str(num_etud) + ''';''')
+    mycursor.execute('''select id_talent from possede
+                        where id_etud  = ''' + str(num_etud) + ''';''')
     for talent in mycursor.fetchall():
-        liste_possede.append(talent)
-
+        liste_possede.append(talent[0])
     mycursor.close()
 
 def modifiy_students_talents(pswd, database_name, request, liste_nouv_talents, liste_anciens_talents):

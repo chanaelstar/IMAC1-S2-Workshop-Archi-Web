@@ -115,6 +115,8 @@ def changement_talents():
     for i in range(len(liste_nouv_talents)):
         liste_etudiants_talents.append(liste_nouv_talents[i]) """
     request_sql.modifiy_students_talents(pswd,database_name, request, liste_nouv_talents, liste_anciens_talents)
+    request_sql.init_liste_talents(pswd, database_name, liste_talents)
+
     print(liste_talents)
     return affichage()
 

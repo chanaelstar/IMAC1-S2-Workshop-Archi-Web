@@ -162,6 +162,7 @@ def init_liste_talents(pswd,database_name, liste_talents):
      database= database_name
     ) 
     mycursor = mydB.cursor()
+    liste_talents.clear()
 
     mycursor.execute('''select * from talent;''')
     for i in mycursor.fetchall():
@@ -249,6 +250,10 @@ def modifiy_students_talents(pswd, database_name, request, liste_nouv_talents, l
 
     mycursor = mydB.cursor()
     
+    mycursor.execute('''insert into talent (nom) values ("'''
+                     + request.form["talent_autre"] + '''");'''  )
+    mydB.commit()
+
     for i in range(len(request.form.getlist("talents"))):
         liste_nouv_talents.append((int(request.form["num_etud"]),int(request.form.getlist("talents")[i])))
 
@@ -276,6 +281,15 @@ def modifiy_students_talents(pswd, database_name, request, liste_nouv_talents, l
             mycursor.execute('''insert into possede (id_etud,id_talent) values
                              (''' + str(talent[0]) + ''', ''' + str(talent[1]) + ''');''')
             mydB.commit()
+    
+    mycursor.execute('''select max(id_tal) from talent ;''')
+    id_talent_autre = mycursor.fetchone()[0]
+
+    mycursor.execute('''insert into possede (id_etud, id_talent) values ('''
+                     + request.form["num_etud"] + ''', '''
+                     + str(id_talent_autre) + ''');''')
+    mydB.commit()
+
     mycursor.close()
 
 def suppression(pswd, database_name, value):

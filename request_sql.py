@@ -155,7 +155,8 @@ def init_liste_talents(pswd,database_name, liste_talents):
     mycursor = mydB.cursor()
 
     mycursor.execute('''select * from talent;''')
-    liste_talents = mycursor.fetchall();
+    for i in mycursor.fetchall():
+        liste_talents.append(i)
     mycursor.close()
 
 def get_students_info(pswd,database_name, liste_etudiants, liste_etudiants_talents):

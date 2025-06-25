@@ -72,7 +72,7 @@ def init_database(pswd, database_name):
     isAlreadyDone = mycursor.fetchone()[0]
     if not isAlreadyDone:
         mycursor.execute(''' insert into groupe (nom, nb_membres) values
-                         ('sans groupe', 0) 
+                         ('sans groupe', 0), 
                          ('movieStars', 3),
                          ('movies', 2);''')
         mydB.commit()

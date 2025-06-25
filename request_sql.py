@@ -192,3 +192,35 @@ def add_student(pswd, database_name, request):
     mydB.commit()
 
     mycursor.close()
+
+def students_current_talents(pswd, database_name, num_etud, liste_possede):
+    mydB = mysql.connector.connect (
+     host="localhost",
+     user="root",
+     password = pswd,
+     database= database_name
+    )
+
+    mycursor = mydB.cursor()
+    
+    mycursor.execute('''select talent.nom from talent
+                        join possede on talent.id_tal = possede.id_talent
+                        where possede.id_etud  = ''' + str(num_etud) + ''';''')
+    for talent in mycursor.fetchall():
+        liste_possede.append(talent)
+
+    mycursor.close()
+
+def modifiy_students_talents(pswd, database_name, request, liste_nouv_talents, liste_autres_talents):
+    mydB = mysql.connector.connect (
+     host="localhost",
+     user="root",
+     password = pswd,
+     database= database_name
+    )
+
+    mycursor = mydB.cursor()
+    mycursor.execute('''select count(id_tal) from talent;''')
+    print(mycursor.fecth())
+    print(type(mycursor.fetchall()))
+    mycursor.close()

@@ -58,10 +58,11 @@ def traitement():
 
 @myapp.route("/suppression/<int:value>")
 def suppression(value):
-    for i in range(len(liste_etudiants)):
-        if liste_etudiants[i]["num_etudiant"] == value:
-            liste_etudiants.pop(i)
-            break
+    # for i in range(len(liste_etudiants)):
+    #     if liste_etudiants[i]["num_etudiant"] == value:
+    #         liste_etudiants.pop(i)
+    #         break
+    request_sql.suppression(pswd, database_name, value)
     return affichage()
 
 @myapp.route("/modification/<int:value>")

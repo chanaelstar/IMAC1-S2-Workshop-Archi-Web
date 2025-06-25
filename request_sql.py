@@ -154,6 +154,9 @@ def get_students_info(pswd,database_name, liste_etudiants, liste_etudiants_talen
     ) 
 
     mycursor = mydB.cursor()
+    
+    liste_etudiants_talents.clear()
+    liste_etudiants.clear()
 
     mycursor.execute('''select * from etudiant''')
     for i in mycursor.fetchall():
@@ -161,8 +164,8 @@ def get_students_info(pswd,database_name, liste_etudiants, liste_etudiants_talen
         etudiant["num_etudiant"] = i[0]
         etudiant["prenom"] = i[1]
         etudiant["nom"] = i[2]
-        if i[0] > len(liste_etudiants):
-            liste_etudiants.append(etudiant)
+        
+        liste_etudiants.append(etudiant)
 
     mycursor.execute('''select etudiant.id_num, talent.nom from talent
                      join possede on talent.id_tal = possede.id_talent
@@ -171,8 +174,8 @@ def get_students_info(pswd,database_name, liste_etudiants, liste_etudiants_talen
         etudiant_talent = {}
         etudiant_talent["num_etudiant"] = i[0]
         etudiant_talent["talent"] = i[1]
-        if etudiant_talent not in liste_etudiants_talents:
-            liste_etudiants_talents.append(etudiant_talent)
+
+        liste_etudiants_talents.append(etudiant_talent)
 
     mycursor.close()
 
@@ -221,6 +224,29 @@ def modifiy_students_talents(pswd, database_name, request, liste_nouv_talents, l
 
     mycursor = mydB.cursor()
     mycursor.execute('''select count(id_tal) from talent;''')
-    print(mycursor.fecth())
+    print(mycursor.fetchall())
     print(type(mycursor.fetchall()))
+    mycursor.close()
+
+def suppression(pswd, database_name, value):
+    mydB = mysql.connector.connect (
+     host="localhost",
+     user="root",
+     password=pswd,
+     database=database_name
+    )
+    mycursor =mydB.cursor()
+
+    mycursor.execute('''delete from possede
+                     where id_etud=''' + str(value) + ''';'''
+                     )
+    mycursor.execute('''update groupe 
+                     join etudiant on id_grp = id_groupe
+                     set nb_membres = nb_membres-1
+                     where id_num=''' + str(value) + ''';'''
+                     )
+    mycursor.execute('''delete from etudiant
+                     where id_num=''' + str(value)
+                     )
+    mydB.commit()
     mycursor.close()

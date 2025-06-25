@@ -75,9 +75,9 @@ def modification(value):
     return render_template("modification_page.html", etudiant = etudiant, liste_etudiants_talents = liste_etudiants_talents)
 
 @myapp.route("/changement/<int:num_etud>", methods=['POST'])
-def changement(pswd, database_name, num_etud):
+def changement(num_etud):
 
-    request_sql.changement_infos_etud(pswd, database_name, num_etud)
+    request_sql.changement_infos_etud(pswd, database_name, num_etud, request)
     # for i in range(len(liste_etudiants)):
     #     if liste_etudiants[i]["num_etudiant"] == num_etud:
     #         liste_etudiants[i]["nom"] = request.form["nouv_nom"]

@@ -276,7 +276,7 @@ def suppression(pswd, database_name, value):
     mydB.commit()
     mycursor.close()
 
-def changement_infos_etud(pswd, database_name, num_etud):
+def changement_infos_etud(pswd, database_name, num_etud, request):
     mydB = mysql.connector.connect (
      host="localhost",
      user="root",

@@ -14,7 +14,7 @@ def init_database(pswd, database_name):
     mycursor.execute('''create table IF NOT EXISTS talent (id_tal int primary key auto_increment, nom varchar(50)
                     )''')
     mydB.commit()
-    mycursor.execute('''create table IF NOT EXISTS groupe (id_grp int primary key auto_increment, nom varchar(50), nb_membres int
+    mycursor.execute('''create table IF NOT EXISTS groupe (id_grp int primary key auto_increment = 0, nom varchar(50), nb_membres int
                     )''')
     mydB.commit()
     mycursor.execute('''create table IF NOT EXISTS etudiant (id_num int primary key auto_increment, prenom varchar(50), nom varchar(50), id_groupe int (10),
@@ -71,7 +71,8 @@ def init_database(pswd, database_name):
                     where id_table=4; ''')
     isAlreadyDone = mycursor.fetchone()[0]
     if not isAlreadyDone:
-        mycursor.execute(''' insert into groupe (nom, nb_membres) values 
+        mycursor.execute(''' insert into groupe (nom, nb_membres) values
+                         ('sans groupe', 0) 
                          ('movieStars', 3),
                          ('movies', 2);''')
         mydB.commit()

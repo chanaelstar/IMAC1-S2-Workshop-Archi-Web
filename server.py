@@ -3,6 +3,7 @@ from flask_cors import CORS
 import random 
 import mysql.connector
 import request_sql
+import utils
 myapp = Flask(__name__)
 CORS(myapp)
 
@@ -48,11 +49,7 @@ def suppression(value):
 
 @myapp.route("/modification/<int:value>")
 def modification(value):
-    etudiant = {}
-    for i in range(len(liste_etudiants)):
-        if liste_etudiants[i]["num_etudiant"] == value:
-            etudiant = liste_etudiants[i]
-            break
+    etudiant = utils.selection_etudiant(liste_etudiants,value)    
     return render_template("modification_page.html", etudiant = etudiant, liste_etudiants_talents = liste_etudiants_talents)
 
 @myapp.route("/changement/<int:num_etud>", methods=['POST'])
@@ -92,11 +89,7 @@ def traitement_groupe():
 
 @myapp.route("/modification_grp/<int:id_grp>")
 def modif_groupe (id_grp):
-    groupe = {}
-    for i in range(len(liste_groupes)):
-        if liste_groupes[i]["num_groupe"] == id_grp:
-            groupe = liste_groupes[i]
-            break
+    groupe = utils.selection_groupe(liste_groupes,id_grp)
     return render_template("modification_groupe_page.html", groupe = groupe, liste_projets = liste_projets)
 
 @myapp.route("/changement_grp/<int:num_grp>", methods=['POST'])

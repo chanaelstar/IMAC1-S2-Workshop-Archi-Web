@@ -89,8 +89,8 @@ def init_database(pswd, database_name):
                         ('Bob','leponge', 2),
                         ('Dora','lexploratrice', 2),
                         ('koro','sensei', 2),
-                        ('2','Scream', 3),
-                        ('II','Gladiator', 3);''')
+                        ('Scream', '2', 3),
+                        ('Gladiator', 'II', 3);''')
         mydB.commit()
         mycursor.execute('''update controle set implement=True 
                         where id_table=2;''')
@@ -421,7 +421,7 @@ def add_group(pswd, database_name, request):
     mydB.commit()
     mycursor.close()
 
-def changement_infos_grp(pswd, database_name, num_grp, request):
+def changement_infos_grp(pswd, database_name, num_grp, request, liste_nouv_membres, liste_anciens_membres):
     mydB = mysql.connector.connect (
     host="localhost",
     user="root",
@@ -431,12 +431,44 @@ def changement_infos_grp(pswd, database_name, num_grp, request):
     mycursor = mydB.cursor()
 
     mycursor.execute('''update groupe set nom= "''' + request.form["nouv_nom"] +
-                     '''" where id_grp=''' + str(num_grp) + 
-                     ''';'''
+                     '''" where id_grp=''' + str(num_grp) + ''';'''
                      )
     mycursor.execute('''update projet set nom= "''' + request.form["nouv_projet"] +
-                     '''" where id_groupe=''' + str(num_grp)
+                     '''" where id_groupe=''' + str(num_grp) + ''';'''
                      )
+    
     mydB.commit()
+    
+    for i in range(len(request.form.getlist("etudiants"))):
+        mycursor.execute('''select id_groupe from etudiant
+                         where id_num =''' + request.form.getlist("etudiants")[i] + ''';''')
+        membre_groupe = mycursor.fetchone()[0]
+        liste_nouv_membres.append((int(request.form.getlist("etudiants")[i]), membre_groupe)) 
+
+    mycursor.execute('''select id_num,id_groupe from etudiant
+                     where id_groupe = ''' + str(num_grp) + ''';''')
+    liste_anciens_membres = mycursor.fetchall()
+
+    #trie entre les nouveaux membres et les anciens
+    for membre in liste_anciens_membres:
+        if membre not in liste_nouv_membres:
+            mycursor.execute('''update etudiant set id_groupe=1
+                             where id_num= ''' + str(membre[0]) + ''';''')
+            print(liste_nouv_membres)
+            mycursor.execute('''update groupe set nb_membres = nb_membres-1
+                             where id_grp = ''' + str(num_grp) + ''';''')
+            mycursor.execute('''update groupe set nb_membres = nb_membres+1
+                             where id_grp =1;''')
+            mydB.commit()
+    #vérifie si un nouveau talent doit être ajouté 
+    for membre in liste_nouv_membres:
+        if membre not in liste_anciens_membres:
+            mycursor.execute('''update etudiant set id_groupe=''' + str(num_grp) +
+                             ''' where id_num= ''' + str(membre[0]) + ''';''')
+            mycursor.execute('''update groupe set nb_membres = nb_membres +1
+                             where id_grp = ''' + str(num_grp) + ''';''')
+            mycursor.execute('''update groupe set nb_membres = nb_membres -1
+                             where id_grp =''' + str(membre[1]) + ''' ;''')
+            mydB.commit()
 
     mycursor.close()

@@ -89,12 +89,16 @@ def traitement_groupe():
 
 @myapp.route("/modification_grp/<int:id_grp>")
 def modif_groupe (id_grp):
-    groupe = utils.selection_groupe(liste_groupes,id_grp)
-    return render_template("modification_groupe_page.html", groupe = groupe, liste_projets = liste_projets)
+    groupe = utils.selection_groupe(liste_groupes,id_grp)   
+    request_sql.get_students_info(pswd,database_name, liste_etudiants, liste_etudiants_talents)
+
+    return render_template("modification_groupe_page.html", groupe = groupe, liste_projets = liste_projets, liste_etudiants=liste_etudiants)
 
 @myapp.route("/changement_grp/<int:num_grp>", methods=['POST'])
 def changement_grp(num_grp):
-    request_sql.changement_infos_grp(pswd, database_name, num_grp, request)
+    liste_nouv_membres = []
+    liste_anciens_membres = []
+    request_sql.changement_infos_grp(pswd, database_name, num_grp, request,liste_nouv_membres, liste_anciens_membres)
     return affichage_groupes()
 
 

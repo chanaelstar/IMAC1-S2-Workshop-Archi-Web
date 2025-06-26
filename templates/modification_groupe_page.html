@@ -19,6 +19,17 @@
             <input type="text" name="nouv_nom" id="nouv_nom" value='{{groupe["nom"]}}' />
             <label for="nouv_projet">Nouveau Projet : </label>
             <input type="text" name="nouv_projet" id="nouv_projet" value='{{ liste_projets[groupe["num_groupe"]-1] }}' />
+            <label for="nouv_membres">Nouvelle Composition : </label>
+
+            {% for etud in liste_etudiants %}
+                {% if etud["groupe"] == groupe["num_groupe"] %}
+                    <input type="checkbox" name='etudiants' id='{{etud["num_etudiant"]}}' value='{{etud["num_etudiant"]}}' checked/> {{etud["prenom"]}} {{etud["nom"]}}
+                    <br>
+                {% else %}
+                    <input type="checkbox" name='etudiants' id='{{etud["num_etudiant"]}}' value='{{etud["num_etudiant"]}}'/> {{etud["prenom"]}} {{etud["nom"]}}
+                    <br>
+                {% endif %}
+            {% endfor %}
             <input type="submit"></input>
         </form>
 

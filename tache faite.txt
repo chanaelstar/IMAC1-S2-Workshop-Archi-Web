@@ -1,26 +1,35 @@
+Tâches réalisées par chacun:
+
 Chanaël
 - MCD + schéma relationnel
 - rédaction du README
-- affichage exemple
-- ajout exemple
-- affichage en interaction avec la base de données
-- ajout CSS 
-- testeuse officielle 
-- ajout de groupe
 - début de la diapo pour la présentation du vendredi
 - MCD final
+- ajout CSS 
+- testeuse officielle 
+
+- Fonction utilisant un exemple:
+-- fonctions Ajout & Affichage (etudiant) 
+
+- Fonction utilsant la base de données:
+-- fonction Affichage (etudiant)
+-- fonction Ajout (groupe)
+-- fonction Ajout (talent, possede)
 
 Emilie
-- Creation base de données sql
-- modification de nom / prenom en interaction avec la base de données
-- affichage & modification groupe
-- suppression des étudiants
-
+- Fonction utilisant la base de données:
+-- fonction Initialisation base de données
+-- fonction Modification & Suppression (etudiant)
+-- fonctions Affichage & Modification (groupe)
 
 Léo
-- suppression exemple
-- modif exemple
-- affichage talents exemple et modification
 - gestion d'erreurs 
-- modification & affichage des talents
+- création route api (inutilisées pour le moment)
+
+- Fonction utilisant un exemple:
+-- focntion Modification & Suppression (etudiant)
+-- fonctions Affichage & Modification (talent, possede)
+
+- Fonction utilsant la base de données:
+-- fonctions Affichage & Modification (talent, possede)
 

@@ -425,5 +425,6 @@ def changement_infos_grp(pswd, database_name, num_grp, request):
     mycursor.execute('''update projet set nom= "''' + request.form["nouv_projet"] +
                      '''" where id_groupe=''' + str(num_grp)
                      )
+    mydB.commit()
 
     mycursor.close()

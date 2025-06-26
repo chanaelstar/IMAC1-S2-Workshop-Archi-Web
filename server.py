@@ -7,7 +7,7 @@ import utils
 myapp = Flask(__name__)
 CORS(myapp)
 
-pswd = "636cxp77"
+pswd = "$W1shm3str$"
 database_name = "test"
 
 ### listes pour traitement globale
@@ -179,15 +179,15 @@ def api_get_talents():
 def api_add_talents():
     return 0
 
-@myapp.route("/api/v1/talents/<int: id_talent>", methods = ['GET'])
+@myapp.route("/api/v1/talents/<int:id_talent>", methods = ['GET'])
 def api_get_one_talent(id_talent):
     return 0
 
-@myapp.route("/api/v1/talents/<int: id_talent>", methods = ['PUT'])
+@myapp.route("/api/v1/talents/<int:id_talent>", methods = ['PUT'])
 def api_modify_one_talent(id_talent):
     return 0
 
-@myapp.route("/api/v1/talents/<int: id_talent>", methods = ['DELETE'])
+@myapp.route("/api/v1/talents/<int:id_talent>", methods = ['DELETE'])
 def api_delete_one_talent(id_talent):
     return 0
 
@@ -200,14 +200,14 @@ def api_get_projects():
 def api_add_projects():
     return 0
 
-@myapp.route("/api/v1/projects/<int: id_proj>", methods = ['GET'])
+@myapp.route("/api/v1/projects/<int:id_proj>", methods = ['GET'])
 def api_get_one_project(id_proj):
     return 0
 
-@myapp.route("/api/v1/projects/<int: id_proj>", methods = ['PUT'])
+@myapp.route("/api/v1/projects/<int:id_proj>", methods = ['PUT'])
 def api_modify_one_project(id_proj):
     return 0
 
-@myapp.route("/api/v1/projects/<int: id_proj>", methods = ['DELETE'])
+@myapp.route("/api/v1/projects/<int:id_proj>", methods = ['DELETE'])
 def api_delete_one_project(id_proj):
     return 0

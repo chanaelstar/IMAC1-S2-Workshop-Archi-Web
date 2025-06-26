@@ -336,13 +336,18 @@ def changement_infos_etud(pswd, database_name, num_etud, request):
                      '''" where id_num=''' + str(num_etud)+ 
                      ''';'''
                     )
-    mycursor.execute('''update groupe
+    mydB.commit()
+    
+    mycursor.execute('''select max(id_grp) from groupe;''')
+    max_id_grp = mycursor.fetchone()[0]
+    if int(request.form["nouv_grp"]) > 0 and int(request.form["nouv_grp"]) <= max_id_grp:
+        mycursor.execute('''update groupe
                      join etudiant on groupe.id_grp = etudiant.id_groupe 
                      set nb_membres = nb_membres - 1
                      where etudiant.id_num =  ''' + str(num_etud) + ''';''')
-    mycursor.execute('''update groupe set nb_membres = nb_membres + 1 
+        mycursor.execute('''update groupe set nb_membres = nb_membres + 1 
                      where id_grp = "''' + request.form["nouv_grp"] +'''" ; ''')
-    mycursor.execute('''update etudiant 
+        mycursor.execute('''update etudiant 
                     set id_groupe = "''' + request.form["nouv_grp"] +'''"
                     where  id_num =  ''' + str(num_etud) + ''';''')
     mydB.commit()
@@ -407,7 +412,6 @@ def add_group(pswd, database_name, request):
                       + request.form["nom"] + '''");'''  )
     mydB.commit()
     mycursor.close()
-
 
 def changement_infos_grp(pswd, database_name, num_grp, request):
     mydB = mysql.connector.connect (

@@ -5,6 +5,8 @@
 - Nom du groupe : C.L.E
 - Membres : Emilie DESOMBRE, Chanaël SIAR, Léo SUY
 - Chef de projet : Léo SUY
+- Lien git : https://github.com/chanaelstar/IMAC1-S2-Workshop-Archi-Web.git
+
 
 ### Description du projet
 Ce projet consiste à développer un site web relié à un serveur, permettant d’afficher une liste d’étudiants, leurs points forts (développement, montage, musique, dessin, etc.), les groupes auxquels ils appartiennent, ainsi que les projets sur lesquels ils travaillent.
@@ -26,3 +28,4 @@ Ce système vise à faciliter la gestion de projets collaboratifs dans un cadre 
 ## Schéma Modèle Conceptuel de la Base de Données
 ![Schéma MCD (Modèle Conceptuel de Données)](/doc/MCD.png)
 ![Schéma relationnel](/doc/schema-relationnel.png)
+

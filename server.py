@@ -106,6 +106,7 @@ def changement_grp(num_grp):
 
 
 ### API (inutilisée pour le moment)
+## students & students_talents
 @myapp.route("/api/v1/students", methods=['GET'])
 def api_get_students():
     request_sql.get_students_info(pswd,database_name,liste_etudiants,liste_etudiants_talents)
@@ -154,3 +155,66 @@ def api_delete_one_student(id_stud):
     liste_etudiants_talents = [student_talent for student_talent in liste_etudiants_talents if student_talent["num_etudiant"] != id_stud]
 
     return jsonify({'result' : True})
+
+## groups
+@myapp.route("/api/v1/groups", methods = ['GET'])
+def api_get_groups():
+    return 0
+
+@myapp.route("/api/v1/groups", methods = ['POST'])
+def api_add_groups():
+    return 0
+
+@myapp.route("/api/v1/groups/<int:id_grp>", methods = ['GET'])
+def api_get_one_group(id_grp):
+    return 0
+
+@myapp.route("/api/v1/groups/<int:id_grp>", methods = ['PUT'])
+def api_modify_one_group(id_grp):
+    return 0
+
+@myapp.route("/api/v1/groups/<int:id_grp>", methods = ['DELETE'])
+def api_delete_one_group(id_grp):
+    return 0
+
+## talents
+@myapp.route("/api/v1/talents", methods = ['GET'])
+def api_get_talents():
+    return 0
+
+@myapp.route("/api/v1/talents", methods = ['POST'])
+def api_add_talents():
+    return 0
+
+@myapp.route("/api/v1/talents/<int: id_talent>", methods = ['GET'])
+def api_get_one_talent(id_talent):
+    return 0
+
+@myapp.route("/api/v1/talents/<int: id_talent>", methods = ['PUT'])
+def api_modify_one_talent(id_talent):
+    return 0
+
+@myapp.route("/api/v1/talents/<int: id_talent>", methods = ['DELETE'])
+def api_delete_one_talent(id_talent):
+    return 0
+
+## projects
+@myapp.route("/api/v1/projects", methods = ['GET'])
+def api_get_projects():
+    return 0
+
+@myapp.route("/api/v1/projects", methods = ['POST'])
+def api_add_projects():
+    return 0
+
+@myapp.route("/api/v1/projects/<int: id_proj>", methods = ['GET'])
+def api_get_one_project(id_proj):
+    return 0
+
+@myapp.route("/api/v1/projects/<int: id_proj>", methods = ['PUT'])
+def api_modify_one_project(id_proj):
+    return 0
+
+@myapp.route("/api/v1/projects/<int: id_proj>", methods = ['DELETE'])
+def api_delete_one_project(id_proj):
+    return 0

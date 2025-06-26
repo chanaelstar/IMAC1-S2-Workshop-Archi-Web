@@ -147,3 +147,54 @@ def changement_grp(num_grp):
     request_sql.changement_infos_grp(pswd, database_name, num_grp, request)
 
     return affichage_groupes()
+
+
+### API (inutilisée pour le moment)
+@myapp.route("/api/v1/students", methods=['GET'])
+def api_get_students():
+    request_sql.get_students_info(pswd,database_name,liste_etudiants,liste_etudiants_talents)
+    return jsonify({'students':liste_etudiants, 'students_talents':liste_etudiants_talents})
+
+@myapp.route("/api/v1/students", methods=['POST'])
+def api_add_students():
+    if not request.json or not 'nom' in request.json  or not 'prenom' in request.json or (not 'nom' in request.json  and not 'prenom' in request.json):
+        return jsonify({'error': 'Bad request'}), 400
+
+    new_id = max(student['num_etudiant'] for student in liste_etudiants) + 1 if liste_etudiants else 1
+    
+    new_student = {
+        'num_etudiant': new_id,
+        'prenom': request.json['prenom'],
+        'nom': request.json['nom'],
+        'groupe': 1
+    }
+    liste_etudiants.append(new_student)
+    return jsonify({'new_student': new_student}), 201
+
+@myapp.route("/api/v1/students/<int:id_stud>", methods = ['GET'])
+def api_get_one_student(id_stud):
+    student = next((student for student in liste_etudiants if student['num_etud'] == id_stud), None)
+    if student:
+        return jsonify({'student': student})
+    return jsonify({'error': 'Not found'}), 404
+
+@myapp.route("/api/v1/students/<int:id_stud>", methods = ['PUT'])
+def api_modify_one_student(id_stud):
+    student = next((student for student in liste_etudiants if student['num_etud'] == id_stud), None)
+    if not student:
+        return jsonify({'error': 'Not found'}), 404
+    
+    student['nom'] = request.json.get('nom',student['nom'])
+    student['prenom'] = request.json.get('prenom',student['prenom'])
+    student['groupe'] = request.json.get('groupe',student['groupe'])
+
+    return jsonify({'student': student})
+
+@myapp.route("/api/v1/students/<int:id_stud>", methods = ['DELETE'])
+def api_delete_one_student(id_stud):
+    global liste_etudiants
+    global liste_etudiants_talents
+    liste_etudiants = [student for student in liste_etudiants if student['num_etud'] != id_stud]
+    liste_etudiants_talents = [student_talent for student_talent in liste_etudiants_talents if student_talent["num_etudiant"] != id_stud]
+
+    return jsonify({'result' : True})

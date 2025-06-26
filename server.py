@@ -165,37 +165,35 @@ def api_add_groups():
     if not request.json or not 'nom' in request.json:
         return jsonify({'error': 'Bad request'}), 400
     
-    new_id = max((grp['id_groupe'] for grp in liste_groupes), default=0) + 1
+    new_id = max((grp['num_groupe'] for grp in liste_groupes), default=0) + 1
     new_groupe = {
-        'id_groupe': new_id,
-        'nom_groupe': request.json['nom_groupe'],
-        'nb_membres': 0,
-        'id_projet': None
+        'num_groupe': new_id,
+        'nom': request.json['nom'],
+        'nb_membres': 0
     }
     liste_groupes.append(new_groupe)
     return jsonify({'new_groupe': new_groupe}), 201
 
 @myapp.route("/api/v1/groups/<int:id_grp>", methods = ['GET'])
 def api_get_one_group(id_grp):
-    groupe = next((grp for grp in liste_groupes if grp['id_groupe'] == id_grp), None)
+    groupe = next((grp for grp in liste_groupes if grp['num_groupe'] == id_grp), None)
     if groupe:
         return jsonify({'groupe': groupe})
     return jsonify({'error': 'Not found'}), 404
 
 @myapp.route("/api/v1/groups/<int:id_grp>", methods = ['PUT'])
 def api_modify_one_group(id_grp):
-    groupe = next((grp for grp in liste_groupes if grp['id_groupe'] == id_grp), None)
+    groupe = next((grp for grp in liste_groupes if grp['num_groupe'] == id_grp), None)
     if not groupe:
         return jsonify({'error': 'Not found'}), 404
     
-    groupe['nom_groupe'] = request.json.get('nom_groupe', groupe['nom_groupe'])
-    groupe['id_projet'] = request.json.get('id_projet', groupe['id_projet'])
+    groupe['nom'] = request.json.get('nom', groupe['nom'])
     return jsonify({'groupe': groupe})
 
 @myapp.route("/api/v1/groups/<int:id_grp>", methods = ['DELETE'])
 def api_delete_one_group(id_grp):
     global liste_groupes
-    liste_groupes = [grp for grp in liste_groupes if grp['id_groupe'] != id_grp]
+    liste_groupes = [grp for grp in liste_groupes if grp['num_groupe'] != id_grp]
     return jsonify({'result': True})
 
 ## talents
@@ -218,15 +216,15 @@ def api_add_talents():
     return jsonify({'new_talent': new_talent}), 201
 
 @myapp.route("/api/v1/talents/<int:id_talent>", methods = ['GET'])
-def api_get_one_talent(id_tal):
-    talent = next((talent for talent in liste_talents if talent['id_tal'] == id_tal), None)
+def api_get_one_talent(id_talent):
+    talent = next((talent for talent in liste_talents if talent['id_tal'] == id_talent), None)
     if talent:
         return jsonify({'talent': talent})
     return jsonify({'error': 'Not found'}), 404
 
 @myapp.route("/api/v1/talents/<int:id_talent>", methods = ['PUT'])
-def api_modify_one_talent(id_tal):
-    talent = next((talent for talent in liste_talents if talent['id_tal'] == id_tal), None)
+def api_modify_one_talent(id_talent):
+    talent = next((talent for talent in liste_talents if talent['id_tal'] == id_talent), None)
     if not talent:
         return jsonify({'error': 'Not found'}), 404
     
@@ -251,24 +249,24 @@ def api_add_projects():
     if not request.json or not 'nom' in request.json:
         return jsonify({'error': 'Bad request'}), 400
     
-    new_id = max((proj['id_prt'] for proj in liste_projets), default=0) + 1
+    new_id = max((proj['id_prj'] for proj in liste_projets), default=0) + 1
     new_project = {
-        'id_prt': new_id,
+        'id_prj': new_id,
         'nom': request.json['nom'],
     }
     liste_projets.append(new_project)
     return jsonify({'new_project': new_project}), 201
 
 @myapp.route("/api/v1/projects/<int:id_proj>", methods = ['GET'])
-def api_get_one_project(id_prt):
-    projet = next((projet for projet in liste_projets if projet['id_prt'] == id_prt), None)
+def api_get_one_project(id_proj):
+    projet = next((projet for projet in liste_projets if projet['id_prj'] == id_proj), None)
     if projet:
         return jsonify({'projet': projet})
     return jsonify({'error': 'Not found'}), 404
 
 @myapp.route("/api/v1/projects/<int:id_proj>", methods = ['PUT'])
-def api_modify_one_project(id_prt):
-    projet = next((projet for projet in liste_projets if projet['id_prt'] == id_prt), None)
+def api_modify_one_project(id_proj):
+    projet = next((projet for projet in liste_projets if projet['id_prj'] == id_proj), None)
     if not projet:
         return jsonify({'error': 'Not found'}), 404
     
@@ -276,7 +274,7 @@ def api_modify_one_project(id_prt):
     return jsonify({'projet': projet})
 
 @myapp.route("/api/v1/projects/<int:id_proj>", methods = ['DELETE'])
-def api_delete_one_project(id_prt):
+def api_delete_one_project(id_proj):
     global liste_projets
-    liste_projets = [projet for projet in liste_projets if projet['id_prt'] != id_prt]
+    liste_projets = [projet for projet in liste_projets if projet['id_proj'] != id_proj]
     return jsonify({'result': True})

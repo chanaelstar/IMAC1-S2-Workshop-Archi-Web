@@ -11,6 +11,7 @@ Chanaël
 
 - Fonction utilisant un exemple:
 -- fonctions Ajout & Affichage (etudiant) 
+-- fonctions api (talent, groupe, projet)
 
 - Fonction utilsant la base de données:
 -- fonction Affichage (etudiant)
@@ -30,6 +31,7 @@ Léo
 - Fonction utilisant un exemple:
 -- focntion Modification & Suppression (etudiant)
 -- fonctions Affichage & Modification (talent, possede)
+-- fonction api (etudiant)
 
 - Fonction utilsant la base de données:
 -- fonctions Affichage & Modification (talent, possede)

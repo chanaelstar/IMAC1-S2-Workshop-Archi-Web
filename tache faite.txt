@@ -7,6 +7,7 @@ Chanaël
 - MCD final
 - ajout CSS 
 - testeuse officielle 
+- doc rendu final
 
 - Fonction utilisant un exemple:
 -- fonctions Ajout & Affichage (etudiant) 

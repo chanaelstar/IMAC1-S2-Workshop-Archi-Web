@@ -337,7 +337,7 @@ def changement_infos_etud(pswd, database_name, num_etud, request):
                      ''';'''
                     )
     mydB.commit()
-    
+
     mycursor.execute('''select max(id_grp) from groupe;''')
     max_id_grp = mycursor.fetchone()[0]
     if int(request.form["nouv_grp"]) > 0 and int(request.form["nouv_grp"]) <= max_id_grp:
@@ -410,6 +410,14 @@ def add_group(pswd, database_name, request):
 
     mycursor.execute('''insert into groupe (nom) values (+"''' 
                       + request.form["nom"] + '''");'''  )
+    mydB.commit()
+
+    mycursor.execute('''select max(id_grp) from groupe;''')
+    max_id_grp = mycursor.fetchone()[0]
+
+    mycursor.execute('''insert into projet (nom, id_groupe) values (+"''' 
+                    + request.form["projet"] + '''", '''
+                    + str(max_id_grp) + ''');'''  )
     mydB.commit()
     mycursor.close()
 

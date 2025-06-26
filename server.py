@@ -146,4 +146,4 @@ def changement_grp(num_grp):
 
     request_sql.changement_infos_grp(pswd, database_name, num_grp, request)
 
-    return affichage()
+    return affichage_groupes()

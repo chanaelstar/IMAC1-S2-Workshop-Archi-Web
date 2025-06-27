@@ -247,14 +247,14 @@ def modifiy_students_talents(config_database, request, liste_nouv_talents, liste
      password = config_database['password'],
      database= config_database['database']
     )
-
+    ajout_talent = False
     mycursor = mydB.cursor()
-    print(request.form["talent_autre"])
     for i in request.form["talent_autre"]:
         if i != "":
             mycursor.execute('''insert into talent (nom) values ("'''
                             + request.form["talent_autre"] + '''");'''  )
             mydB.commit()
+            ajout_talent = True
             break
 
     for i in range(len(request.form.getlist("talents"))):
@@ -285,13 +285,14 @@ def modifiy_students_talents(config_database, request, liste_nouv_talents, liste
                              (''' + str(talent[0]) + ''', ''' + str(talent[1]) + ''');''')
             mydB.commit()
     
-    mycursor.execute('''select max(id_tal) from talent ;''')
-    id_talent_autre = mycursor.fetchone()[0]
+    if ajout_talent:
+        mycursor.execute('''select max(id_tal) from talent ;''')
+        id_talent_autre = mycursor.fetchone()[0]
 
-    mycursor.execute('''insert into possede (id_etud, id_talent) values ('''
-                     + str(value) + ''', '''
-                     + str(id_talent_autre) + ''');''')
-    mydB.commit()
+        mycursor.execute('''insert into possede (id_etud, id_talent) values ('''
+                        + str(value) + ''', '''
+                        + str(id_talent_autre) + ''');''')
+        mydB.commit()
 
     mycursor.close()
 

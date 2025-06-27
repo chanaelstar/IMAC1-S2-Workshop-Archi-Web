@@ -30,3 +30,8 @@ Ce système vise à faciliter la gestion de projets collaboratifs dans un cadre 
 ![Schéma MCD (Modèle Conceptuel de Données)](/doc/MCD.png)
 ![Schéma relationnel](/doc/schema-relationnel.png)
 
+
+## Schéma FINAL 
+![Schéma MCD (Modèle Conceptuel de Données)](/doc/MCD_FINAL.png)
+![Schéma relationnel](/doc/schema_relationnel_final.png)
+

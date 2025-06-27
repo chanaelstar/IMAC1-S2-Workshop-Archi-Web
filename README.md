@@ -16,8 +16,9 @@ L’objectif principal est de créer une plateforme centralisée pour recenser l
 Le site offrira plusieurs fonctionnalités clés :
 
 - Ajout, modification et suppression de profils étudiants et de leurs compétences.
-- Affichage des étudiants, de leurs points forts et des projets en cours.
-- Affichage et gestion de groupes en fonction des compétences disponibles.
+- Affichage des étudiants, de leurs points forts et de leur groupe.
+- Flexibilité de la liste de talents que l'on peut compléter.
+- Affichage et gestion des groupes et de leur composition.
 - Association de groupes à des projets avec suivi des membres impliqués.
 
 Ce système vise à faciliter la gestion de projets collaboratifs dans un cadre pédagogique tout en valorisant les compétences individuelles.

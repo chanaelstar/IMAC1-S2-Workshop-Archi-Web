@@ -67,11 +67,11 @@ def modification_talents(value):
     request_sql.students_current_talents(config_database, value, liste_possede)
     return render_template("modification_talents.html", num_etud = value, liste_talents = liste_talents, liste_possede = liste_possede)
 
-@myapp.route("/changement_talents", methods=['POST'])
-def changement_talents():
+@myapp.route("/changement_talents/<int:value>", methods=['POST'])
+def changement_talents(value):
     liste_nouv_talents = []
     liste_anciens_talents = []
-    request_sql.modifiy_students_talents(config_database, request, liste_nouv_talents, liste_anciens_talents)
+    request_sql.modifiy_students_talents(config_database, request, liste_nouv_talents, liste_anciens_talents, value)
     request_sql.init_liste_talents(config_database, liste_talents)
 
     print(liste_talents)

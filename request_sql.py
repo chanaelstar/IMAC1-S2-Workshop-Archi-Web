@@ -240,7 +240,7 @@ def students_current_talents(config_database, num_etud, liste_possede):
         liste_possede.append(talent[0])
     mycursor.close()
 
-def modifiy_students_talents(config_database, request, liste_nouv_talents, liste_anciens_talents):
+def modifiy_students_talents(config_database, request, liste_nouv_talents, liste_anciens_talents, value):
     mydB = mysql.connector.connect (
      host= config_database['host'],
      user= config_database['user'],
@@ -249,16 +249,19 @@ def modifiy_students_talents(config_database, request, liste_nouv_talents, liste
     )
 
     mycursor = mydB.cursor()
-    
-    mycursor.execute('''insert into talent (nom) values ("'''
-                     + request.form["talent_autre"] + '''");'''  )
-    mydB.commit()
+    print(request.form["talent_autre"])
+    for i in request.form["talent_autre"]:
+        if i != "":
+            mycursor.execute('''insert into talent (nom) values ("'''
+                            + request.form["talent_autre"] + '''");'''  )
+            mydB.commit()
+            break
 
     for i in range(len(request.form.getlist("talents"))):
-        liste_nouv_talents.append((int(request.form["num_etud"]),int(request.form.getlist("talents")[i])))
+        liste_nouv_talents.append((value,int(request.form.getlist("talents")[i])))
 
     mycursor.execute('''select * from possede
-                     where id_etud = ''' + request.form["num_etud"] + ''';''')
+                     where id_etud = ''' + str(value) + ''';''')
     liste_anciens_talents = mycursor.fetchall()
     
     liste_selection = []
@@ -286,7 +289,7 @@ def modifiy_students_talents(config_database, request, liste_nouv_talents, liste
     id_talent_autre = mycursor.fetchone()[0]
 
     mycursor.execute('''insert into possede (id_etud, id_talent) values ('''
-                     + request.form["num_etud"] + ''', '''
+                     + str(value) + ''', '''
                      + str(id_talent_autre) + ''');''')
     mydB.commit()
 

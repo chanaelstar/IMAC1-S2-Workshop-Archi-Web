@@ -38,8 +38,10 @@
                                 {% endif %}
                             {% endfor %}
                         </td>
-                        <td style="border: 2px solid rgb(140 140 140)"><a href='/modification_grp/{{groupe["num_groupe"]}}'>Modifier les Informations</a></td>
-                        <!-- <td style="border: 2px solid rgb(140 140 140)"><a href='/suppression_grp/{{groupe["num_groupe"]}}'>Supprimer un groupe</a></td> -->
+                        {% if groupe["num_groupe"] != 1 %}
+                            <td style="border: 2px solid rgb(140 140 140)"><a href='/modification_grp/{{groupe["num_groupe"]}}'>Modifier les Informations</a></td>
+                            <td style="border: 2px solid rgb(140 140 140)"><a href='/suppression_grp/{{groupe["num_groupe"]}}'>Supprimer un groupe</a></td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
             </tbody>

@@ -101,6 +101,11 @@ def changement_grp(num_grp):
     request_sql.changement_infos_grp(pswd, database_name, num_grp, request,liste_nouv_membres, liste_anciens_membres)
     return affichage_groupes()
 
+@myapp.route("/suppression_grp/<int:num_grp>")
+def suppr_grp(num_grp):
+    request_sql.suppression_groupe(pswd, database_name, num_grp, request)
+    return affichage_groupes()
+
 
 ### API (inutilisée pour le moment)
 ## students & students_talents

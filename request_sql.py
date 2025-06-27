@@ -14,7 +14,7 @@ def init_database(pswd, database_name):
     mycursor.execute('''create table IF NOT EXISTS talent (id_tal int primary key auto_increment, nom varchar(50)
                     )''')
     mydB.commit()
-    mycursor.execute('''create table IF NOT EXISTS groupe (id_grp int primary key auto_increment, nom varchar(50), nb_membres int
+    mycursor.execute('''create table IF NOT EXISTS groupe (id_grp int primary key auto_increment, nom varchar(50), nb_membres int default(0)
                     )''')
     mydB.commit()
     mycursor.execute('''create table IF NOT EXISTS etudiant (id_num int primary key auto_increment, prenom varchar(50), nom varchar(50), id_groupe int (10),
@@ -324,10 +324,6 @@ def changement_infos_etud(pswd, database_name, num_etud, request):
     )
     mycursor =mydB.cursor()
 
-    # mycursor.execute('''select * from etudiant where id_num=''' + str(num_etud) + ''';''')
-    # print(type(mycursor.fetchone()[2]))
-    # mydB.commit()
-
     mycursor.execute('''update etudiant set nom= "''' + request.form["nouv_nom"] +
                      '''" where id_num=''' + str(num_etud) + 
                      ''';'''
@@ -352,9 +348,6 @@ def changement_infos_etud(pswd, database_name, num_etud, request):
                     where  id_num =  ''' + str(num_etud) + ''';''')
     mydB.commit()
     
-    # mycursor.execute('''select * from etudiant where id_num=''' + str(num_etud) + ''';''')
-    # print(mycursor.fetchone())
-    # mydB.commit()
     mycursor.close()
 
 def get_groups_info(pswd, database_name, liste_groupes, liste_groupes_talents, liste_projets):
@@ -382,8 +375,22 @@ def get_groups_info(pswd, database_name, liste_groupes, liste_groupes_talents, l
     mycursor.execute('''select projet.nom from projet
                      join groupe on projet.id_groupe = groupe.id_grp
                      order by id_groupe;''')
-    for i in mycursor.fetchall():
+    projets_nom = mycursor.fetchall()
+    mycursor.execute('''select projet.id_prj from projet
+                            join groupe on projet.id_groupe = groupe.id_grp
+                            order by id_groupe;''')
+    projets_id = mycursor.fetchall()
+    n=0
+    for i in projets_nom:
         projet = i[0]
+        if n != 0 :
+            if (projets_id[n][0] - projets_id[n-1][0]) > 1 : # Permet de compenser si un groupe a été supprimé
+                k=0
+                while k < (projets_id[n][0] - projets_id[n-1][0] - 1) :
+                    liste_projets.append((projets_id[n][0] - projets_id[n-1][0])-k)
+                    k=k+1
+            
+        n=n+1
         liste_projets.append(projet)
 
     mycursor.execute('''select distinct groupe.id_grp, talent.nom from talent
@@ -454,7 +461,6 @@ def changement_infos_grp(pswd, database_name, num_grp, request, liste_nouv_membr
         if membre not in liste_nouv_membres:
             mycursor.execute('''update etudiant set id_groupe=1
                              where id_num= ''' + str(membre[0]) + ''';''')
-            print(liste_nouv_membres)
             mycursor.execute('''update groupe set nb_membres = nb_membres-1
                              where id_grp = ''' + str(num_grp) + ''';''')
             mycursor.execute('''update groupe set nb_membres = nb_membres+1
@@ -470,5 +476,33 @@ def changement_infos_grp(pswd, database_name, num_grp, request, liste_nouv_membr
             mycursor.execute('''update groupe set nb_membres = nb_membres -1
                              where id_grp =''' + str(membre[1]) + ''' ;''')
             mydB.commit()
+
+    mycursor.close()
+
+def suppression_groupe(pswd, database_name, num_grp, request):
+    mydB = mysql.connector.connect (
+    host="localhost",
+    user="root",
+    password=pswd,
+    database=database_name
+    )
+    mycursor = mydB.cursor()
+
+    mycursor.execute('''delete from projet
+                     where id_groupe=''' + str(num_grp) + ''';'''
+                     )
+    mycursor.execute('''update etudiant set id_groupe=1
+                     where id_groupe= ''' + str(num_grp) + ''';''')
+    
+    mycursor.execute('''select nb_membres from groupe
+                     where id_grp = ''' + str(num_grp) + ''';''')
+    nb_membres_grp = mycursor.fetchone()[0]
+    mycursor.execute('''update groupe set nb_membres = nb_membres + ''' + str(nb_membres_grp) +
+                    ''' where id_grp =1;''')
+    
+    mycursor.execute('''delete from groupe
+                     where id_grp=''' + str(num_grp) + ''';'''
+                     )
+    mydB.commit()
 
     mycursor.close()

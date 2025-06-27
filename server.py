@@ -7,8 +7,12 @@ import utils
 myapp = Flask(__name__)
 CORS(myapp)
 
-pswd = "$W1shm3str$"
-database_name = "test"
+config_database ={
+    'host': 'localhost',
+    'user': 'root',
+    'password': '$W1shm3str$',
+    'database': 'test'
+}
 
 ### listes pour traitement globale
 liste_etudiants = []
@@ -19,8 +23,8 @@ liste_groupes_talents = []
 liste_projets = []
 
 ###### Initialisation SQL ######
-request_sql.init_database(pswd,database_name)
-request_sql.init_liste_talents(pswd, database_name, liste_talents)
+request_sql.init_database(config_database)
+request_sql.init_liste_talents(config_database, liste_talents)
 ###### Fin SQL ######
 
 @myapp.route("/")
@@ -29,13 +33,13 @@ def accueil():
 
 @myapp.route("/liste_etudiants")
 def affichage():
-    request_sql.get_students_info(pswd, database_name, liste_etudiants,liste_etudiants_talents)
+    request_sql.get_students_info(config_database, liste_etudiants,liste_etudiants_talents)
     return render_template('affichage_etud.html', liste_etudiants=liste_etudiants , liste_etudiants_talents = liste_etudiants_talents)
 
 
 @myapp.route("/ajout", methods=['GET', 'POST'])
 def ajout():
-    request_sql.add_student(pswd,database_name,request)
+    request_sql.add_student(config_database,request)
     return affichage()
 
 @myapp.route("/traitement")
@@ -44,7 +48,7 @@ def traitement():
 
 @myapp.route("/suppression/<int:value>")
 def suppression(value):
-    request_sql.suppression(pswd, database_name, value)
+    request_sql.suppression(config_database, value)
     return affichage()
 
 @myapp.route("/modification/<int:value>")
@@ -54,33 +58,33 @@ def modification(value):
 
 @myapp.route("/changement/<int:num_etud>", methods=['POST'])
 def changement(num_etud):
-    request_sql.changement_infos_etud(pswd, database_name, num_etud, request)
+    request_sql.changement_infos_etud(config_database, num_etud, request)
     return affichage()
 
 @myapp.route("/modification_talents/<int:value>")
 def modification_talents(value):
     liste_possede = []
-    request_sql.students_current_talents(pswd, database_name, value, liste_possede)
+    request_sql.students_current_talents(config_database, value, liste_possede)
     return render_template("modification_talents.html", num_etud = value, liste_talents = liste_talents, liste_possede = liste_possede)
 
 @myapp.route("/changement_talents", methods=['POST'])
 def changement_talents():
     liste_nouv_talents = []
     liste_anciens_talents = []
-    request_sql.modifiy_students_talents(pswd,database_name, request, liste_nouv_talents, liste_anciens_talents)
-    request_sql.init_liste_talents(pswd, database_name, liste_talents)
+    request_sql.modifiy_students_talents(config_database, request, liste_nouv_talents, liste_anciens_talents)
+    request_sql.init_liste_talents(config_database, liste_talents)
 
     print(liste_talents)
     return affichage()
 
 @myapp.route("/liste_groupes")
 def affichage_groupes():
-    request_sql.get_groups_info(pswd, database_name, liste_groupes, liste_groupes_talents, liste_projets) 
+    request_sql.get_groups_info(config_database, liste_groupes, liste_groupes_talents, liste_projets) 
     return render_template('affichage_groupe.html', liste_groupes=liste_groupes , liste_groupes_talents = liste_groupes_talents, liste_projets = liste_projets)
 
 @myapp.route("/ajout_groupe", methods=['GET', 'POST'])
 def ajout_groupe():
-    request_sql.add_group(pswd, database_name, request)
+    request_sql.add_group(config_database, request)
     return affichage_groupes()
 
 @myapp.route("/traitement_groupe")
@@ -90,7 +94,7 @@ def traitement_groupe():
 @myapp.route("/modification_grp/<int:id_grp>")
 def modif_groupe (id_grp):
     groupe = utils.selection_groupe(liste_groupes,id_grp)   
-    request_sql.get_students_info(pswd,database_name, liste_etudiants, liste_etudiants_talents)
+    request_sql.get_students_info(config_database, liste_etudiants, liste_etudiants_talents)
 
     return render_template("modification_groupe_page.html", groupe = groupe, liste_projets = liste_projets, liste_etudiants=liste_etudiants)
 
@@ -98,12 +102,12 @@ def modif_groupe (id_grp):
 def changement_grp(num_grp):
     liste_nouv_membres = []
     liste_anciens_membres = []
-    request_sql.changement_infos_grp(pswd, database_name, num_grp, request,liste_nouv_membres, liste_anciens_membres)
+    request_sql.changement_infos_grp(config_database, num_grp, request,liste_nouv_membres, liste_anciens_membres)
     return affichage_groupes()
 
 @myapp.route("/suppression_grp/<int:num_grp>")
 def suppr_grp(num_grp):
-    request_sql.suppression_groupe(pswd, database_name, num_grp, request)
+    request_sql.suppression_groupe(config_database, num_grp, request)
     return affichage_groupes()
 
 
@@ -111,7 +115,7 @@ def suppr_grp(num_grp):
 ## students & students_talents
 @myapp.route("/api/v1/students", methods=['GET'])
 def api_get_students():
-    request_sql.get_students_info(pswd,database_name,liste_etudiants,liste_etudiants_talents)
+    request_sql.get_students_info(config_database,liste_etudiants,liste_etudiants_talents)
     return jsonify({'students':liste_etudiants, 'students_talents':liste_etudiants_talents})
 
 @myapp.route("/api/v1/students", methods=['POST'])
@@ -162,7 +166,7 @@ def api_delete_one_student(id_stud):
 ## groups
 @myapp.route("/api/v1/groups", methods = ['GET'])
 def api_get_groups():
-    request_sql.get_groups_info(pswd, database_name, liste_groupes, liste_groupes_talents, liste_projets)
+    request_sql.get_groups_info(config_database, liste_groupes, liste_groupes_talents, liste_projets)
     return jsonify({'groups': liste_groupes, 'groups_talents': liste_groupes_talents})
 
 @myapp.route("/api/v1/groups", methods = ['POST'])
@@ -204,7 +208,7 @@ def api_delete_one_group(id_grp):
 ## talents
 @myapp.route("/api/v1/talents", methods = ['GET'])
 def api_get_talents():
-    request_sql.init_liste_talents(pswd, database_name, liste_talents)
+    request_sql.init_liste_talents(config_database, liste_talents)
     return jsonify({'talents': liste_talents})
 
 @myapp.route("/api/v1/talents", methods = ['POST'])
@@ -246,7 +250,7 @@ def api_delete_one_talent(id_talent):
 ## projects
 @myapp.route("/api/v1/projects", methods = ['GET'])
 def api_get_projects():
-    request_sql.get_groups_info(pswd, database_name, liste_groupes, liste_groupes_talents, liste_projets)
+    request_sql.get_groups_info(config_database, liste_groupes, liste_groupes_talents, liste_projets)
     return jsonify({'projects': liste_projets})
 
 @myapp.route("/api/v1/projects", methods = ['POST'])

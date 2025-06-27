@@ -1,11 +1,11 @@
 import mysql.connector
 
-def init_database(pswd, database_name):
+def init_database(config_database):
     mydB = mysql.connector.connect (
-     host="localhost",
-     user="root",
-     password = pswd,
-     database= database_name
+     host= config_database['host'],
+     user= config_database['user'],
+     password = config_database['password'],
+     database= config_database['database']
     )
 
     mycursor =mydB.cursor()
@@ -154,12 +154,12 @@ def init_database(pswd, database_name):
 
     mycursor.close()
 
-def init_liste_talents(pswd,database_name, liste_talents):
+def init_liste_talents(config_database, liste_talents):
     mydB = mysql.connector.connect (
-     host="localhost",
-     user="root",
-     password = pswd,
-     database= database_name
+     host= config_database['host'],
+     user= config_database['user'],
+     password = config_database['password'],
+     database= config_database['database']
     ) 
     mycursor = mydB.cursor()
     liste_talents.clear()
@@ -169,13 +169,13 @@ def init_liste_talents(pswd,database_name, liste_talents):
         liste_talents.append(i)
     mycursor.close()
 
-def get_students_info(pswd,database_name, liste_etudiants, liste_etudiants_talents):
+def get_students_info(config_database, liste_etudiants, liste_etudiants_talents):
     mydB = mysql.connector.connect (
-     host="localhost",
-     user="root",
-     password = pswd,
-     database= database_name
-    ) 
+     host= config_database['host'],
+     user= config_database['user'],
+     password = config_database['password'],
+     database= config_database['database']
+    )
 
     mycursor = mydB.cursor()
     
@@ -204,12 +204,12 @@ def get_students_info(pswd,database_name, liste_etudiants, liste_etudiants_talen
 
     mycursor.close()
 
-def add_student(pswd, database_name, request):
+def add_student(config_database, request):
     mydB = mysql.connector.connect (
-     host="localhost",
-     user="root",
-     password = pswd,
-     database= database_name
+     host= config_database['host'],
+     user= config_database['user'],
+     password = config_database['password'],
+     database= config_database['database']
     )
 
     mycursor = mydB.cursor()
@@ -224,12 +224,12 @@ def add_student(pswd, database_name, request):
 
     mycursor.close()
 
-def students_current_talents(pswd, database_name, num_etud, liste_possede):
+def students_current_talents(config_database, num_etud, liste_possede):
     mydB = mysql.connector.connect (
-     host="localhost",
-     user="root",
-     password = pswd,
-     database= database_name
+     host= config_database['host'],
+     user= config_database['user'],
+     password = config_database['password'],
+     database= config_database['database']
     )
 
     mycursor = mydB.cursor()
@@ -240,12 +240,12 @@ def students_current_talents(pswd, database_name, num_etud, liste_possede):
         liste_possede.append(talent[0])
     mycursor.close()
 
-def modifiy_students_talents(pswd, database_name, request, liste_nouv_talents, liste_anciens_talents):
+def modifiy_students_talents(config_database, request, liste_nouv_talents, liste_anciens_talents):
     mydB = mysql.connector.connect (
-     host="localhost",
-     user="root",
-     password = pswd,
-     database= database_name
+     host= config_database['host'],
+     user= config_database['user'],
+     password = config_database['password'],
+     database= config_database['database']
     )
 
     mycursor = mydB.cursor()
@@ -292,12 +292,12 @@ def modifiy_students_talents(pswd, database_name, request, liste_nouv_talents, l
 
     mycursor.close()
 
-def suppression(pswd, database_name, value):
+def suppression(config_database, value):
     mydB = mysql.connector.connect (
-     host="localhost",
-     user="root",
-     password=pswd,
-     database=database_name
+     host= config_database['host'],
+     user= config_database['user'],
+     password = config_database['password'],
+     database= config_database['database']
     )
     mycursor =mydB.cursor()
 
@@ -315,12 +315,12 @@ def suppression(pswd, database_name, value):
     mydB.commit()
     mycursor.close()
 
-def changement_infos_etud(pswd, database_name, num_etud, request):
+def changement_infos_etud(config_database, num_etud, request):
     mydB = mysql.connector.connect (
-     host="localhost",
-     user="root",
-     password=pswd,
-     database=database_name
+     host= config_database['host'],
+     user= config_database['user'],
+     password = config_database['password'],
+     database= config_database['database']
     )
     mycursor =mydB.cursor()
 
@@ -350,12 +350,12 @@ def changement_infos_etud(pswd, database_name, num_etud, request):
     
     mycursor.close()
 
-def get_groups_info(pswd, database_name, liste_groupes, liste_groupes_talents, liste_projets):
+def get_groups_info(config_database, liste_groupes, liste_groupes_talents, liste_projets):
     mydB = mysql.connector.connect (
-    host="localhost",
-    user="root",
-    password=pswd,
-    database=database_name
+     host= config_database['host'],
+     user= config_database['user'],
+     password = config_database['password'],
+     database= config_database['database']
     )
     mycursor =mydB.cursor()
 
@@ -406,12 +406,12 @@ def get_groups_info(pswd, database_name, liste_groupes, liste_groupes_talents, l
     
     mycursor.close()
 
-def add_group(pswd, database_name, request):
+def add_group(config_database, request):
     mydB = mysql.connector.connect (
-    host="localhost",
-    user="root",
-    password=pswd,
-    database=database_name
+     host= config_database['host'],
+     user= config_database['user'],
+     password = config_database['password'],
+     database= config_database['database']
     )
     mycursor = mydB.cursor()
 
@@ -428,12 +428,12 @@ def add_group(pswd, database_name, request):
     mydB.commit()
     mycursor.close()
 
-def changement_infos_grp(pswd, database_name, num_grp, request, liste_nouv_membres, liste_anciens_membres):
+def changement_infos_grp(config_database, num_grp, request, liste_nouv_membres, liste_anciens_membres):
     mydB = mysql.connector.connect (
-    host="localhost",
-    user="root",
-    password=pswd,
-    database=database_name
+     host= config_database['host'],
+     user= config_database['user'],
+     password = config_database['password'],
+     database= config_database['database']
     )
     mycursor = mydB.cursor()
 
@@ -479,12 +479,12 @@ def changement_infos_grp(pswd, database_name, num_grp, request, liste_nouv_membr
 
     mycursor.close()
 
-def suppression_groupe(pswd, database_name, num_grp, request):
+def suppression_groupe(config_database, num_grp, request):
     mydB = mysql.connector.connect (
-    host="localhost",
-    user="root",
-    password=pswd,
-    database=database_name
+     host= config_database['host'],
+     user= config_database['user'],
+     password = config_database['password'],
+     database= config_database['database']
     )
     mycursor = mydB.cursor()
 

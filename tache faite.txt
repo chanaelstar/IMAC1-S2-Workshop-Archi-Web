@@ -22,7 +22,7 @@ Emilie
 - Fonction utilisant la base de données:
 -- fonction Initialisation base de données
 -- fonction Modification & Suppression (etudiant)
--- fonctions Affichage & Modification & Suppression (groupe)
+-- fonctions Affichage & Modification (groupe)
 
 Léo
 - gestion d'erreurs 
